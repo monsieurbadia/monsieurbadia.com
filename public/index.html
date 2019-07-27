@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="I'm a kind of ninja phantom who's passionate by animations and Javascript programming. To stimulate my creativity and to be a frontend Hokage, I do the basic : coding all day, errday. Good bye, Thank you.">
+    <meta name="keywords" content="monsieurbadia, Monsieur Badia, HTML, CSS, Javascript, ES6, React, Sass, Scrum, Creative Coder, Frontend Developper, Developpeur Frontend, Atomic Design, Website, Site Officiel">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>monsieurbadia • Creative Coder</title>
+    <style media="screen">
+
+      :root {
+        
+        --color-black-100: rgb( 0, 0, 0 );
+        --color-blue-100: rgb( 0, 0, 255 );
+        --color-gold-100: rgb( 176, 147, 90 );
+        --color-green-100: rgb( 4, 20, 19 );
+        --color-red-100: rgb( 255, 0, 0 );
+        --color-yellow-100: rgb( 241, 196, 15 );
+        --color-white-100: rgb( 255, 255, 255 );
+
+      }
+
+      html {
+
+        height: 100vh;
+
+      }
+
+      body {
+
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        font-family: sans-serif;
+        background-image: linear-gradient( 0deg,rgb( 250, 208, 196 ) 0,rgb( 255, 209, 255 ) );
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+      }
+
+      #root {
+
+        width: 100%;
+        height: 100%;
+
+      }
+
+      .loading-renderer-html {
+
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        user-select: none;
+
+      }
+
+      .loading-renderer-html-icon {
+        
+        width: 25px;
+
+      }
+
+      .loading-renderer-html-title {
+        
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+
+      }
+
+      .loading-renderer-html-title-slot {
+
+        margin: 0 5px 0 5px;
+
+      }
+
+      .app {
+        
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+      }
+
+      .scene {
+
+        width: 450px;
+        height: 450px;
+        perspective: 5000px;
+
+      }
+
+      .card {
+
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        position: relative;
+        box-shadow: 0 1px 3px rgba( 0,0,0,0.12 ),
+        0 1px 2px rgba( 0,0,0,0.24 );
+        background-color: var( --color-green-100 );
+        /* user-select: none; */
+        transform: rotateY( 0deg );
+        transform-style: preserve-3d;
+        transition: transform 1000ms,
+        box-shadow 500ms cubic-bezier( 0.25,.8,.25,1.0 );
+
+      }
+
+      .card:hover {
+
+        box-shadow: 0 14px 28px rgba( 0,0,0,0.25 ),
+        0 10px 10px rgba( 0,0,0,0.22 );
+
+      }
+
+      .card.is-flipped {
+
+        transform: rotateY( 180deg );
+
+      }
+
+      .card-face {
+
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 100px calc( 100% - 100px );
+        position: absolute;
+        background-color: var( --color-green-100 );
+        color: var( --color-black-100 );
+        font-size: 40px;
+        font-weight: bold;
+        text-align: center;
+        backface-visibility: hidden;
+
+      }
+
+      /* .card-face--front {} */
+
+      .card-face--back {
+
+        transform: rotateY( 180deg );
+
+      }
+
+      .card-face-title-wrapper {
+
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+        font-weight: 100;
+        color: var( --color-white-100 );
+        font-style: normal;
+        text-align: center;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+      }
+      
+      .card-face-link {
+
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+        color: var( --color-gold-100 );
+        font-family: sans-serif;
+        text-decoration: none;
+        -webkit-transform: rotate(-180deg);
+        -ms-transform: rotate(-180deg);
+        transform: rotate(-180deg);
+
+        writing-mode: tb-lr;
+        writing-mode: vertical-lr;
+
+      }
+
+      .card-face-link span {
+
+        display: block;
+        white-space: nowrap;
+
+      }
+
+      /* .card-face-link span { */
+
+        /* font-weight: 100; */
+
+      /* } */
+
+      .card-face--front .card-face-list-title {
+
+        margin: 0 0 5px 0;
+        font-weight: 300;
+        text-transform: uppercase;
+
+      }
+
+      .card-face-content > div {
+
+        right: 20px;
+        bottom: 20px;
+        position: absolute;
+        color: var( --color-yellow-100 );
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 2px;
+        text-align: right;
+
+      }
+
+      .icon {
+
+        width: 40px;
+        position: absolute;
+        fill: var( --color-yellow-100 );
+
+      }
+
+      .icon.icon--bubble.icon--top {
+
+        top: 25px;
+
+      }
+
+      .icon.icon--bubble.icon--bottom {
+
+        bottom: 25px;
+        -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
+
+      }
+
+      .icon--rotate {
+
+        z-index: 5;
+        top: 20px;
+        right: 25px;
+        width: 25px;
+        height: auto;
+        position: absolute;
+        transform: rotateY(0deg);
+        transition: transform 1000ms;
+
+      }
+
+      .icon--rotate:hover {
+
+        transform: rotateY(180deg);
+
+      }
+
+
+      .card-face--front .card-face-list {
+        
+        margin: 0;
+        padding: 0;
+        display: flex;
+        list-style: none;
+        flex-wrap: wrap;
+
+      }
+
+      .card-face--front .card-face-list-item {
+
+        font-weight: 100;
+        font-size: 10px;
+        flex: 1 1 120px;
+        margin-bottom: 2px;
+        color: var( --color-gold-100 );
+
+      }
+
+      .card-face--back .card-face-content {
+
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+        /* justify-content: center; */
+        letter-spacing: 2px;
+
+      }
+
+      .card-face--back .card-face-list {
+        
+        margin: 0;
+        padding: 0;
+        display: flex;
+        list-style: none;
+        flex-wrap: wrap;
+
+      }
+
+      .card-face--back .card-face-list-item {
+
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 12px;
+        line-height: 15px;
+        display: flex;
+        flex-direction: column;
+        color: var( --color-gold-100 );
+        text-transform: uppercase;
+
+      }
+
+      .card-face--back .card-face-list-item:nth-child( 3 ) {
+
+        margin-bottom: 30px;
+
+      }
+
+      .card-face--back .card-face-list-item:last-child {
+
+        margin-bottom: 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+
+      }
+
+      .card-face--back .card-face-list-item .name {
+
+        margin-bottom: 5px;
+        font-size: 10px;
+        color: var( --color-yellow-100 );
+        font-weight: 400;
+
+      }
+
+      .card-face--back .card-face-list-item .date {
+
+        font-size: 10px;
+        font-weight: 300;
+
+      }
+
+      .card-face--back .card-face-list-item .qualification {
+
+        font-size: 10px;
+        font-weight: 100;
+
+      }
+
+      .card-face-background {
+
+        width: 100%;
+        height: 100%;
+        position: absolute;
+
+      }
+
+      .icon {
+
+        height: auto;
+
+      }
+
+      .icon-social {
+
+        margin-right: 35px;
+        position: relative;
+
+      }
+
+      .icon-social:last-child {
+
+        margin-right: 0;
+
+      }
+
+      .icon-github {
+
+        width: 20px;
+
+      }
+
+      .icon-codepen {
+
+        width: 65px;
+
+      }
+
+      .icon-linkedin {
+
+        width: 20px;
+
+      }
+
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
