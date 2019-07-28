@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  lazy,
+  Suspense
+} from 'react';
 
 import {
   Route,
@@ -8,6 +11,17 @@ import {
 // components
 import Home from './components/Main/Home/Home';
 
+// components lazy loading
+const NotFoundComponent = lazy( () => import( './components/Main/NotFound/NotFound' /* webpackChunkName: "NotFound" */ ) );
+
+const NotFoundWrappedComponent = () => (
+
+  <Suspense fallback={ <div></div> }>
+    <NotFoundComponent />
+  </Suspense>
+
+);
+
 export default function App () {
 
   return (
@@ -15,6 +29,7 @@ export default function App () {
     <div className='app'>
       <Switch>
         <Route path='/' exact component={ Home } />
+        <Route path='/*' exact component={ NotFoundWrappedComponent } />
       </Switch>
     </div>
   
