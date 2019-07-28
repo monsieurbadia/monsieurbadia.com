@@ -24,8 +24,6 @@ const Moon = function Moon () {
 
   this.position.copy( new Vector3( 0, 0, 0 ) );
   
-  this.add( _armure, _shadow ,_sphere );
-
 };
 
 Moon.prototype = Object.create( Object3D.prototype );
@@ -34,13 +32,17 @@ Moon.prototype = Object.assign( Moon.prototype, {
 
   create: function create ( group ) {
 
+    _armure.create( this );
+    _shadow.create( this );
+    _sphere.create( this );
+
     group.add( this );
 
   },
 
   render: function render ( time, isFlipped ) {
 
-    const timer = Date.now() - _start;
+    const timer = ( Date.now() - _start );
 
     _armure.render( time );
     _sphere.render( isFlipped );

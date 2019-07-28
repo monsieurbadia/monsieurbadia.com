@@ -1,6 +1,11 @@
 import React from 'react';
 
-const Card = ( { canvas, children, className = 'card card-component', onClick } ) => (
+const Card = ( {
+  canvas,
+  children,
+  className = 'card card-component',
+  onClick
+} ) => (
 
   <div
     className={ className }
@@ -11,7 +16,10 @@ const Card = ( { canvas, children, className = 'card card-component', onClick } 
 
 );
 
-const Background = ( { background, content } ) => (
+const Background = ( {
+  background,
+  content
+} ) => (
 
   <div
     className='card-face-background'
@@ -21,7 +29,10 @@ const Background = ( { background, content } ) => (
 
 );
 
-const Face = ( { children, type = 'front' } ) => (
+const Face = ( {
+  children,
+  type = 'front'
+} ) => (
 
   <div className={ `card-face card-face--${ type }` }>
     { children }

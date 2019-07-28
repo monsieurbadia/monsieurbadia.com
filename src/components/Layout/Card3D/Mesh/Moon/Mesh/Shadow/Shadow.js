@@ -23,4 +23,14 @@ const Shadow = function Shadow () {
 
 Shadow.prototype = Object.create( Mesh.prototype );
 
+Shadow.prototype = Object.assign( Shadow.prototype, {
+
+  create: function create ( group ) {
+
+    group.add( this );
+
+  }
+
+} );
+
 export default Shadow;

@@ -6,15 +6,16 @@ import {
   NearestFilter,
   RepeatWrapping,
   SphericalReflectionMapping,
-  TextureLoader
 } from 'three';
+
 import SimplexNoise from 'simplex-noise';
+
+// components
+import { PromiseTextureLoader } from '../../../../../../Common/LoaderManager/LoaderManager';
 
 // images
 import envMapImage from '../../../../../../../assets/images/envMap.png';
 import alphaMapImage from '../../../../../../../assets/images/alphaMap.png';
-
-const textureLoader = new TextureLoader();
 
 let _geometry;
 let _material;
@@ -36,18 +37,6 @@ const Armure = function Armure () {
     transparent: true,
   } );
 
-  const envMap = textureLoader.load( envMapImage );
-  envMap.mapping = SphericalReflectionMapping;
-
-  _material.envMap = envMap;
-  _material.alphaMap = textureLoader.load( alphaMapImage );
-  _material.alphaMap.mapping = SphericalReflectionMapping;
-  _material.alphaMap.magFilter = NearestFilter;
-  _material.alphaMap.wrapT = RepeatWrapping;
-  _material.roughnessMap = _material.alphaMap;
-  _material.alphaMap.repeat.y = 2;
-  _material.alphaMap.anisotropy = 1;
-
   Mesh.call( this, _geometry, _material );
 
   this.name = 'armure';
@@ -60,6 +49,27 @@ const Armure = function Armure () {
 Armure.prototype = Object.create( Mesh.prototype );
 
 Armure.prototype = Object.assign( Armure.prototype, {
+
+  create: async function create ( group ) {
+
+    const envMap = await PromiseTextureLoader( envMapImage );
+    envMap.mapping = SphericalReflectionMapping;
+  
+    _material.envMap = envMap;
+
+    const alphaMap = await PromiseTextureLoader( alphaMapImage );
+
+    _material.alphaMap = alphaMap;
+    _material.alphaMap.mapping = SphericalReflectionMapping;
+    _material.alphaMap.magFilter = NearestFilter;
+    _material.alphaMap.wrapT = RepeatWrapping;
+    _material.roughnessMap = _material.alphaMap;
+    _material.alphaMap.repeat.y = 2;
+    _material.alphaMap.anisotropy = 1;
+
+    group.add( this );
+
+  },
 
   render: function render ( time ) {
 
