@@ -4,12 +4,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 // componenets
 import App from './App';
+import Credits from './components/Common/Credits/Credits';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
 
   <BrowserRouter>
     <App />
+    <Credits />
   </BrowserRouter>,
 
   document.getElementById( 'root' )
@@ -17,4 +19,4 @@ ReactDOM.render(
 );
 
 // service worker
-serviceWorker.unregister();
+serviceWorker.register();

@@ -7,14 +7,17 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Javascript 3D Interactive Flip Card UI • Official Website">
     <meta name="keywords" content="monsieurbadia, monsieur badia, Monsieur Badia, MonsieurBadia, HTML, CSS, Javascript, ES6, React, SASS, SCSS, Less Scrum, Creative Coder, Frontend Developper, Developpeur Frontend, Atomic Design, Website, Site Officiel, Official Website, Design UI, Design UX">
+    <link rel="canonical" href="https://monsieurbadia.com"/>
+    <link rel="dns-prefetch" href="https://monsieurbadia.com"/>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="preconnect" href="https://monsieurbadia.com" crossorigin>
     <title>monsieurbadia • Creative Coder</title>
     <style media="screen">
 
       /* https://gist.github.com/mattdenner/518776 */
       
       :root {
-        
+
         --color-black-100: rgb( 0, 0, 0 );
         --color-blue-100: rgb( 0, 0, 255 );
         --color-gold-100: rgb( 176, 147, 90 );
@@ -37,6 +40,9 @@
         width: 100vw;
         height: 100vh;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-family: sans-serif;
         background-image: linear-gradient( 0deg,rgb( 250, 208, 196 ) 0,rgb( 255, 209, 255 ) );
         -webkit-font-smoothing: antialiased;
@@ -53,6 +59,7 @@
 
       .loading-renderer-html {
 
+        position: absolute;
         display: flex;
         flex-direction: column-reverse;
         align-items: center;
@@ -102,11 +109,11 @@
         height: 450px;
         position: relative;
 
-        -webkit-perspective: 5000;
-        -moz-perspective: 5000;
-        -ms-perspective: 5000;
-        -o-perspective: 5000;
-        perspective: 5000;
+        -webkit-perspective: 5000px;
+        -moz-perspective: 5000px;
+        -ms-perspective: 5000px;
+        -o-perspective: 5000px;
+        perspective: 5000px;
         
       }
 
@@ -436,6 +443,44 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class='loading-renderer-html first-contentful-paint'>
+
+      <h1 class='loading-renderer-html-title'>
+        <div class='loading-renderer-html-title-slot'>monsieurbadia</div>
+      </h1>
+
+      <svg
+        clipRule="evenodd"
+        fillRule="evenodd"
+        width="100"
+        viewBox="0 200 845 425"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill="#000000" d="M4 579l82 0 251 -333 130 170 84 -111 210 274 82 0 0 22 -839 0 0 -22zm109 0l354 0 -134 -291 -220 291zm378 0l74 0 -186 -243 112 243zm101 0l61 0 -107 -232 -65 87 111 145zm85 0l56 0 -140 -184 84 184z" />
+      </svg>
+
+    </div>
     <div id="root"></div>
+
+    <script>
+      
+      ( function ( window, document ) {
+
+        const onDOMContentLoaded = function onDOMContentLoaded () {
+
+          const firstContent = document.body.querySelector( '.first-contentful-paint' );
+
+          if ( firstContent ) {
+
+            document.body.removeChild( firstContent );
+
+          }
+
+        };
+
+        window.addEventListener( 'DOMContentLoaded', onDOMContentLoaded, false );
+
+      } ( window, document ) );
+    
+    </script>
   </body>
 </html>
