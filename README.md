@@ -5,7 +5,7 @@
 monsieurbadia 🌌 made with &nbsp;  
 [Animejs](https://animejs.com/),
 [Firebase](https://firebase.google.com), 
-[React](https://reactjs.org) 
+[React](https://reactjs.org) and
 [Three.js](https://threejs.org).
 
 Demo
@@ -65,7 +65,7 @@ Demo
 
 ## Reports
 
-# ![monsieurbadia Lighthouse Reports](https://github.com/monsieurbadia/monsieurbadia.github.io/blob/master/assets/github/monsieurbadia/monsieurbadia-lighthouse-reports.gif?)
+# ![monsieurbadia Lighthouse Reports](https://github.com/monsieurbadia/monsieurbadia.github.io/blob/master//assets/github/monsieurbadia/monsieurbadia-lighthouse-reports.png?)
 
 ## License
 
