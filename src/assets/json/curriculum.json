@@ -1,0 +1,59 @@
+{
+  "data": {
+    "experiences": [
+      {
+        "id": 0,
+        "date": "Avril 2018 - Present",
+        "name": "Sfeir",
+        "qualification": "Frontend Developper",
+        "author": "experiences"
+      },
+      {
+        "id": 1,
+        "date": "Octobre 2016 - Avril 2018",
+        "name": "Valtech",
+        "qualification": "Frontend Developper",
+        "author": "experiences"
+      },
+      {
+        "id": 2,
+        "date": "Août 2015 - Octobre 2016",
+        "name": "Journey Agency",
+        "qualification": "Full-Stack Developper",
+        "author": "experiences"
+      }
+    ],
+    "socials": [
+      {
+        "id": 0,
+        "date": "",
+        "name": "github",
+        "qualification": "monsieurbadia",
+        "author": "socials"
+      },
+      {
+        "id": 1,
+        "date": "",
+        "name": "codepen",
+        "qualification": "monsieurbadia",
+        "author": "socials"
+      },
+      {
+        "id": 2,
+        "date": "",
+        "name": "linkedin",
+        "qualification": "monsieurbadia",
+        "author": "socials"
+      }
+    ],
+    "contact": [
+      {
+        "id": 0,
+        "date": "",
+        "email": "",
+        "content": "Sorry I do not exist. I'm a kind of ninja phantom who's passionate by animations and Javascript programming. To stimulate my creativity and to be a frontend Hokage, I do the basic : coding all day, errday. Good bye, Thank you.",
+        "author": "contact"
+      }
+    ]
+  }
+}
