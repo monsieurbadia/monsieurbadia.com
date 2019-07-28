@@ -45,7 +45,7 @@ export default function Card3D () {
   const card = useRef( null );
   const cardBackgroundFront = useRef( null );
   const cardBackgroundBack = useRef( null );
-  const clock = useRef( null );
+  const clock = useRef( new Clock( { autoStart: false } ) );
   const composerRendererWebGL =  useRef( null );
   const customPerspectiveCamera = useRef( null );
   const customRendererWebGL = useRef( null );
@@ -251,7 +251,6 @@ export default function Card3D () {
     orbitControls.current.zoomSpeed = 1.2;
     orbitControls.current.panSpeed = 0.8;
 
-    clock.current = new Clock( { autoStart: false } );
     clock.current.start();
 
     timeoutID.current.renderer = window.setTimeout( () => {

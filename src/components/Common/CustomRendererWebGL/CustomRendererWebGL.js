@@ -29,7 +29,7 @@ CustomRendererWebGL.prototype = Object.assign( CustomRendererWebGL.prototype, {
 
   name: 'custom-renderer-webgl',
 
-  setGamma: function setGamma ( isActive ) {
+  setGamma: function setGamma ( isActive = false ) {
 
     this.gammaInput = isActive;
     this.gammaOutput = isActive;  

@@ -1,4 +1,7 @@
-import { SpotLight, Vector3 } from 'three';
+import {
+  SpotLight,
+  Vector3
+} from 'three';
 
 const CustomSpotLight = function CustomSpotLight () {
 
