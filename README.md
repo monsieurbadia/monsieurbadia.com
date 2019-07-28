@@ -4,7 +4,7 @@ Javascript 3D Interactive Flip Card UI • Official Website
 
 # ![monsieurbadia Sample](https://github.com/monsieurbadia/monsieurbadia.github.io/blob/master/assets/github/monsieurbadia/monsieurbadia-sample.gif?)
 
-monsieurbadia 🌌 made with &nbsp;
+monsieurbadia 🌌 made with &nbsp;  
 [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), 
 [Animejs](https://animejs.com/),
 [Firebase Hosting](https://firebase.google.com),
