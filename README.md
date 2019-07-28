@@ -1,15 +1,17 @@
 # monsieurbadia
 
+Javascript 3D Interactive Flip Card UI • Official Website
+
 # ![monsieurbadia Sample](https://github.com/monsieurbadia/monsieurbadia.github.io/blob/master/assets/github/monsieurbadia/monsieurbadia-sample.gif?)
 
-monsieurbadia 🌌 made with &nbsp;  
+monsieurbadia 🌌 made with &nbsp;
+[Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), 
 [Animejs](https://animejs.com/),
-[Firebase](https://firebase.google.com), 
+[Firebase Hosting](https://firebase.google.com),
 [React](https://reactjs.org) and
 [Three.js](https://threejs.org).
 
-Demo
-&nbsp;  
+Demo &nbsp;  
 [https://monsieurbadia.com](https://monsieurbadia.com)
 
 ## Usage
@@ -26,7 +28,7 @@ Demo
     yarn install
   ```
 
-2. Run the npm script ```dev:api``` to start development with local server side
+2. Run the script ```dev:api``` to start development with local server side
 
   with NPM :
   ```sh
@@ -38,7 +40,7 @@ Demo
     yarn dev:api
   ```
 
-3. Run the npm script ```build``` to make the compressed files
+3. Run the script ```build``` to make the compressed files
 
   with NPM :
   ```sh
