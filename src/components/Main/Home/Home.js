@@ -61,7 +61,12 @@ export default withRouter( function Home () {
             <div className='loading-renderer-html-title-slot'>monsieurbadia</div>
           </h1>
 
-          <svg width="100" viewBox="0 200 845 425" fillRule="evenodd" clipRule="evenodd">
+          <svg
+            clipRule="evenodd"
+            fillRule="evenodd"
+            width="100"
+            viewBox="0 200 845 425"
+            xmlns="http://www.w3.org/2000/svg">
             <path fill="#000000" d="M4 579l82 0 251 -333 130 170 84 -111 210 274 82 0 0 22 -839 0 0 -22zm109 0l354 0 -134 -291 -220 291zm378 0l74 0 -186 -243 112 243zm101 0l61 0 -107 -232 -65 87 111 145zm85 0l56 0 -140 -184 84 184z" />
           </svg>
 
