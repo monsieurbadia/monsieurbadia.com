@@ -31,6 +31,7 @@ import {
 
 // components
 import Card from './Component/Card/Card';
+import Colors from '../../Common/Colors/Colors';
 import CustomPerspectiveCamera from '../../Common/CustomPerspectiveCamera/CustomPerspectiveCamera';
 import CustomRendererWebGL from '../../Common/CustomRendererWebGL/CustomRendererWebGL';
 import CustomSpotLight from '../../Common/CustomSpotLight/CustomSpotLight';
@@ -59,7 +60,7 @@ export default function Card3D () {
   const renderPassRendererWebGL = useRef( null );
   const sceneRendererWebGL = useRef( new Scene() );
   const timeoutID = useRef( { card3d: null, renderer: null } );
-  const timer = useRef( 0 );
+  const timer = useRef( { time: 0, duration: 10 } );
 
   useEffect( () => {
 
@@ -108,7 +109,7 @@ export default function Card3D () {
 
   const clearTimer = function clearTimer () {
 
-    timer.current = 0;
+    timer.current.time = 0;
 
   };
 
@@ -198,9 +199,9 @@ export default function Card3D () {
     customPerspectiveCamera.current = new CustomPerspectiveCamera( 25, ( width / height ), 0.1, 250 );
     customPerspectiveCamera.current.position.set( 0, 15, 100 );
 
-    ambientLight.current = new AmbientLight( 0xffffff, 0.25 );
+    ambientLight.current = new AmbientLight( Colors.hexa.white, 0.25 );
     customSpotLight.current = new CustomSpotLight();
-    directionalLight.current = new DirectionalLight( 0xffffff, 0.75 );
+    directionalLight.current = new DirectionalLight( Colors.hexa.white, 0.75 );
     directionalLight.current.position.setScalar( 100 );
 
     moon.current = new Moon();
@@ -215,7 +216,7 @@ export default function Card3D () {
     customRendererWebGL.current.shadowMap.enabled = true;
     customRendererWebGL.current.shadowMap.type = PCFSoftShadowMap;
     customRendererWebGL.current.toneMappingExposure = Math.pow( 0.95, 4.0 );
-    customRendererWebGL.current.setClearColor( 0x041413, 1.0 );
+    customRendererWebGL.current.setClearColor( Colors.hexa.green, 1.0 );
     customRendererWebGL.current.setGamma( true );
 
     bloomEffectRendererWebGL.current = new BloomEffect( {
@@ -267,13 +268,13 @@ export default function Card3D () {
 
     const time = clock.current.getDelta();
 
-    timer.current += time;
+    timer.current.time += time;
 
-    // customSpotLight.current.render( time );
-    // moon.current.render( time, isFlipped.current );
-    // composerRendererWebGL.current.render( time );
+    customSpotLight.current.render( time );
+    moon.current.render( time, isFlipped.current );
+    composerRendererWebGL.current.render( time );
 
-    if ( parseInt( timer.current ) === 10 ) {
+    if ( parseInt( timer.current.time ) === timer.current.duration ) {
 
       flip();
 
@@ -291,6 +292,26 @@ export default function Card3D () {
 
   const resize = function resize () {};
 
+  const resultCardContentFront = function resultCardContentFront () {
+
+    return (
+
+      <div>
+        <h3 className='card-face-list-title'>creative coder</h3>
+        <ul className='card-face-list'>
+          <li className='card-face-list-item'>#javascript</li>
+          <li className='card-face-list-item'>#canvasAPI</li>
+          <li className='card-face-list-item'>#react</li>
+          <li className='card-face-list-item'>#webGL</li>
+          <li className='card-face-list-item'>#vue</li>
+          <li className='card-face-list-item'>#three</li>
+        </ul>
+      </div>
+
+    );
+
+  };
+
   return (
 
     <Card
@@ -300,19 +321,7 @@ export default function Card3D () {
       <Card.Face type='front'>
         <Card.Background background={ cardBackgroundFront } content={ <canvas className='canvas-renderer-webgl' ref={ canvasRendererWebGL } /> } />
         <Card.Title title={ <span className='card-face-link'>monsieurbadia</span> } />
-        <Card.Content content={ 
-          <div>
-            <h3 className='card-face-list-title'>creative coder</h3>
-            <ul className='card-face-list'>
-              <li className='card-face-list-item'>#javascript</li>
-              <li className='card-face-list-item'>#canvasAPI</li>
-              <li className='card-face-list-item'>#react</li>
-              <li className='card-face-list-item'>#webGL</li>
-              <li className='card-face-list-item'>#vue</li>
-              <li className='card-face-list-item'>#three</li>
-            </ul>
-          </div>
-        } />
+        <Card.Content content={ resultCardContentFront() } />
       </Card.Face>
       <Card.Face type='back'>
         <Card.Background background={ cardBackgroundBack } />
