@@ -1,28 +1,24 @@
 # monsieurbadia
 
-# ![monsieurbadia Sample](http://monsieurbadia.com/assets/github/monsieurbadia/monsieurbadia-sample.gif?)
+# ![monsieurbadia Sample](https://github.com/monsieurbadia/monsieurbadia.github.io/blob/master/assets/github/monsieurbadia-sample.gif?)
 
 • Common :
 
   - credits
+  - custom-perspective-camera
   - custom-renderer-webgl
   - custom-stats
-  - custom-perspective-camera
+  - custom-spot-light
   - motion
-  - screen
 
 • Layout :
 
-  - card
-  - card3D
+  - card3d
   - loading
-  - progress-bar
 
 • Main :
 
   - home
-
     - mesh
-
       - moon
 
