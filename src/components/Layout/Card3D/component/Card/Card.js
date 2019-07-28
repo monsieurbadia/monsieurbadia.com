@@ -3,8 +3,8 @@ import React from 'react';
 const Card = ( { canvas, children, className = 'card card-component', onClick } ) => (
 
   <div
-    ref={ canvas }
     className={ className }
+    ref={ canvas }
     onClick={ onClick }>
     { children }
   </div>
@@ -13,7 +13,9 @@ const Card = ( { canvas, children, className = 'card card-component', onClick } 
 
 const Background = ( { background, content } ) => (
 
-  <div ref={ background } className='card-face-background'>
+  <div
+    className='card-face-background'
+    ref={ background }>
     { content }
   </div>
 
@@ -31,12 +33,18 @@ const Title = ( { title } ) => (
 
   <div className='card-face-title'>
     <div className='card-face-title-wrapper'>
-      <svg className='icon icon--bubble icon--top' viewBox='0 15 100 100'>
+      <svg
+        className='icon icon--bubble icon--top'
+        viewBox='0 15 100 100'
+        xmlns='http://www.w3.org/2000/svg'>
         <polygon points='45.454,16.378 11.119,16.378 11.119,50.713 29.547,77.188 42.673,67.431 31.152,50.713 45.454,50.713'></polygon>
         <polygon points='87.528,16.378 53.192,16.378 53.192,50.713 71.621,77.188 84.747,67.431 73.226,50.713 87.528,50.713'></polygon>
       </svg>
       { title }
-      <svg className='icon icon--bubble icon--bottom' viewBox='0 15 100 100'>
+      <svg
+        className='icon icon--bubble icon--bottom'
+        viewBox='0 15 100 100'
+        xmlns='http://www.w3.org/2000/svg'>
         <polygon points='45.454,16.378 11.119,16.378 11.119,50.713 29.547,77.188 42.673,67.431 31.152,50.713 45.454,50.713'></polygon>
         <polygon points='87.528,16.378 53.192,16.378 53.192,50.713 71.621,77.188 84.747,67.431 73.226,50.713 87.528,50.713'></polygon>
       </svg>

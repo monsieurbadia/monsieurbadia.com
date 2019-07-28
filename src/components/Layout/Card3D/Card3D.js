@@ -30,7 +30,7 @@ import {
 } from 'postprocessing';
 
 // components
-import Card from './component/Card/Card';
+import Card from './Component/Card/Card';
 import CustomPerspectiveCamera from '../../Common/CustomPerspectiveCamera/CustomPerspectiveCamera';
 import CustomRendererWebGL from '../../Common/CustomRendererWebGL/CustomRendererWebGL';
 import CustomSpotLight from '../../Common/CustomSpotLight/CustomSpotLight';
@@ -38,27 +38,28 @@ import Moon from './Mesh/Moon/Moon';
 
 export default function Card3D () {
 
-  const ambientLight = useRef( new AmbientLight( 0xffffff, 0.25 ) );
+  const ambientLight = useRef( null );
   const bloomEffectRendererWebGL = useRef( null );
   const canvasRendererWebGL = useRef( null );
   const card = useRef( null );
   const cardBackgroundFront = useRef( null );
   const cardBackgroundBack = useRef( null );
-  const clock = useRef( new Clock( { autoStart: false } ) );
+  const clock = useRef( null );
   const composerRendererWebGL =  useRef( null );
   const customPerspectiveCamera = useRef( null );
   const customRendererWebGL = useRef( null );
-  const customSpotLight = useRef( new CustomSpotLight() );
-  const directionalLight = useRef( new DirectionalLight( 0xffffff, 0.75 ) );
+  const customSpotLight = useRef( null );
+  const directionalLight = useRef( null );
   const effectPassRendererWebGL = useRef( null );
   const frameID = useRef( null );
   const groupRendererWebGL = useRef( new Group() );
-  const moon = useRef( new Moon() );
+  const isFlipped = useRef( false );
+  const moon = useRef( null );
   const orbitControls = useRef( null );
   const renderPassRendererWebGL = useRef( null );
   const sceneRendererWebGL = useRef( new Scene() );
-  const timeoutID = useRef( null );
-  const isFlipped = useRef( false );
+  const timeoutID = useRef( { card3d: null, renderer: null } );
+  const timer = useRef( 0 );
 
   useEffect( () => {
 
@@ -87,13 +88,27 @@ export default function Card3D () {
 
   const clear = function clear () {
 
-    clearRenderer();
+    clearRenderer( frameID.current );
+    clearTimeoutID( timeoutID.current.card3d );
+    clearTimeoutID( timeoutID.current.renderer );
 
   };
 
-  const clearRenderer = function clearRenderer () {
+  const clearRenderer = function clearRenderer ( frameID ) {
 
-    window.cancelAnimationFrame( frameID.current );
+    window.cancelAnimationFrame( frameID );
+
+  };
+
+  const clearTimeoutID = function clearTimeoutID ( timeoutID ) {
+
+    window.clearTimeout( timeoutID );
+
+  };
+
+  const clearTimer = function clearTimer () {
+
+    timer.current = 0;
 
   };
 
@@ -111,18 +126,11 @@ export default function Card3D () {
 
     event.stopPropagation();
 
-    if ( card.current !== null ) {
-
-      card.current.classList.toggle( 'is-flipped' );
-
-      window.clearTimeout( timeoutID.current );
-      timeoutID.current = window.setTimeout( flip, 250 );
-
-    }
+    flip();
 
   };
 
-  const flip = function flip () {
+  const onFlip = function onFlip () {
 
     const { position } = customPerspectiveCamera.current;
 
@@ -168,20 +176,40 @@ export default function Card3D () {
 
   };
 
-  const init = function init ( canvasRendererWebGL, { width, height, pixelRatio } ) {
+  const flip = function flip () {
+
+    if ( card.current !== null ) {
+
+      card.current.classList.toggle( 'is-flipped' );
+
+      clearTimer();
+      clearTimeoutID( timeoutID.current.card3d );
+
+      timeoutID.current.card3d = window.setTimeout( onFlip, 250 );
+
+    }
+
+  };
+
+  const init = async function init ( canvasRendererWebGL, { width, height, pixelRatio } ) {
 
     sceneRendererWebGL.current.add( groupRendererWebGL.current );
 
     customPerspectiveCamera.current = new CustomPerspectiveCamera( 25, ( width / height ), 0.1, 250 );
     customPerspectiveCamera.current.position.set( 0, 15, 100 );
 
-    moon.current.create( groupRendererWebGL.current );
-
+    ambientLight.current = new AmbientLight( 0xffffff, 0.25 );
+    customSpotLight.current = new CustomSpotLight();
+    directionalLight.current = new DirectionalLight( 0xffffff, 0.75 );
     directionalLight.current.position.setScalar( 100 );
 
+    moon.current = new Moon();
+
+    await customSpotLight.current.create( groupRendererWebGL.current );
+    await moon.current.create( groupRendererWebGL.current );
+
     groupRendererWebGL.current.add( ambientLight.current );
-    groupRendererWebGL.current.add( directionalLight.current );
-    groupRendererWebGL.current.add( customSpotLight.current );    
+    groupRendererWebGL.current.add( directionalLight.current );   
 
     customRendererWebGL.current = new CustomRendererWebGL( canvasRendererWebGL, { width, height, pixelRatio } );
     customRendererWebGL.current.shadowMap.enabled = true;
@@ -218,15 +246,20 @@ export default function Card3D () {
     orbitControls.current.enabled = false;
     orbitControls.current.enableRotate = true;
     orbitControls.current.enableZoom = true;
-
     orbitControls.current.rotateSpeed = 1.0;
     orbitControls.current.zoomSpeed = 1.2;
     orbitControls.current.panSpeed = 0.8;
 
+    clock.current = new Clock( { autoStart: false } );
     clock.current.start();
 
-    on();
-    renderLoop();
+    timeoutID.current.renderer = window.setTimeout( () => {
+
+      on();
+      clearTimer();
+      renderLoop();
+  
+    }, 100 );
 
   };
 
@@ -234,11 +267,17 @@ export default function Card3D () {
 
     const time = clock.current.getDelta();
 
-    customSpotLight.current.render( time );
-    moon.current.render( time, isFlipped.current );
-    orbitControls.current.update();
+    timer.current += time;
 
-    composerRendererWebGL.current.render( time );
+    // customSpotLight.current.render( time );
+    // moon.current.render( time, isFlipped.current );
+    // composerRendererWebGL.current.render( time );
+
+    if ( parseInt( timer.current ) === 10 ) {
+
+      flip();
+
+    }
 
   };
 
@@ -252,12 +291,10 @@ export default function Card3D () {
 
   const resize = function resize () {};
 
-  console.log( isFlipped.current );
-
   return (
 
     <Card
-      className={ `card card-component ${ ( isFlipped.current ) ? 'is-flipped' : '' }` }
+      className='card card-component'
       canvas={ card }
       onClick={ onClick }>
       <Card.Face type='front'>
@@ -298,8 +335,10 @@ export default function Card3D () {
                 <div className='date'>Août 2015 - Octobre 2016</div>
                 <div className='qualification'>Full-Stack Developper</div>
               </li>
-              <li className='card-face-list-item'>
+            </ul>
+            <footer className='card-face-list-footer'>
                 <a
+                  aria-label='github'
                   className='icon icon-social icon-github'
                   href='https://github.com/monsieurbadia'
                   rel='noopener noreferrer'
@@ -311,6 +350,7 @@ export default function Card3D () {
                   </svg>
                 </a>
                 <a
+                  aria-label='codepen'
                   className='icon icon-social icon-codepen'
                   href='https://codepen.io/monsieurbadia'
                   rel='noopener noreferrer'
@@ -326,6 +366,7 @@ export default function Card3D () {
                   </svg>
                 </a>
                 <a
+                  aria-label='linkedin'
                   className='icon icon-social icon-linkedin'
                   href='https://linkedin.com/in/monsieurbadia'
                   rel='noopener noreferrer'
@@ -334,8 +375,7 @@ export default function Card3D () {
                     <path fill='#B0935A' d='M430.117,261.543V420.56h-92.188V272.193c0-37.271-13.334-62.707-46.703-62.707 c-25.473,0-40.632,17.142-47.301,33.724c-2.432,5.928-3.058,14.179-3.058,22.477V420.56h-92.219c0,0,1.242-251.285,0-277.32h92.21 v39.309c-0.187,0.294-0.43,0.611-0.606,0.896h0.606v-0.896c12.251-18.869,34.13-45.824,83.102-45.824 C384.633,136.724,430.117,176.361,430.117,261.543z M52.183,9.558C20.635,9.558,0,30.251,0,57.463 c0,26.619,20.038,47.94,50.959,47.94h0.616c32.159,0,52.159-21.317,52.159-47.94C103.128,30.251,83.734,9.558,52.183,9.558z M5.477,420.56h92.184v-277.32H5.477V420.56z'></path>
                   </svg>
                 </a>
-              </li>
-            </ul>
+              </footer>
           </div>
         } />
       </Card.Face>

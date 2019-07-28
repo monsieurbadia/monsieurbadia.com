@@ -8,12 +8,15 @@ import Sphere from './Mesh/Sphere/Sphere';
 let _armure;
 let _shadow;
 let _sphere;
+let _start;
 
 const Moon = function Moon () {
 
   _armure = new Armure();
   _shadow = new Shadow();
   _sphere = new Sphere();
+
+  _start = Date.now();
 
   Object3D.call( this );
 
@@ -37,8 +40,12 @@ Moon.prototype = Object.assign( Moon.prototype, {
 
   render: function render ( time, isFlipped ) {
 
+    const timer = Date.now() - _start;
+
     _armure.render( time );
     _sphere.render( isFlipped );
+
+    this.position.y = ( Math.abs( Math.sin( timer * 0.00025 ) ) * 2.5 );
 
   }
 
