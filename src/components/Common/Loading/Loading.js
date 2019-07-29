@@ -3,12 +3,10 @@ import React from 'react';
 // components
 import LoadingRendererSVG from './LoadingRenderer/LoadingRendererSVG/LoadingRendererSVG';
 
-export default function Loading () {
+export default function Loading ( props ) {
 
-  return (
+  const { animated, className } = props;
 
-    <LoadingRendererSVG />
-
-  );
+  return ( <LoadingRendererSVG animated={ animated } className={ className } /> );
 
 };

@@ -74,6 +74,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
+        position: relative;
 
       }
 
@@ -102,8 +103,59 @@
 
       }
 
+      .loading-renderer--svg.loading-renderer--card3d {
 
-      .loading-renderer-svg-title {
+        /* opacity: 0; */
+        transform: scale( 0.85 );
+        /* animation: 300ms linear fade-in forwards; */
+
+
+      }
+
+      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body path {
+
+        stroke: var( --color-gold-100 );
+
+      }
+
+      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-title text {
+
+        fill: var( --color-gold-100 );
+
+      }
+
+      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body-head-structure path {
+
+        fill: var( --color-gold-100 );
+        /* stroke: var( --color-gold-100 ); */
+
+      }
+
+      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body-head-eye-structure path {
+
+        stroke: var( --color-gold-100 );
+
+      }
+
+      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body-head-eye-pupil path {
+
+        fill: var( --color-gold-100 );
+
+      }
+
+      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body-head-eye-pupil .eye-pupil-glow path {
+
+        fill: var( --color-white-100 );
+
+      }
+
+      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body-head-eye-iris path {
+
+        stroke: var( --color-gold-100 );
+
+      }
+
+      .loading-renderer--svg-title {
 
         font-size: 16px;
         font-weight: 400;
@@ -495,15 +547,65 @@
 
       }
 
+      @-webkit-keyframes fade-in {
+
+        0% { opacity: 0; }
+
+        100% { opacity: 1; }
+
+      }
+
+      @-moz-keyframes fade-in {
+
+        0% { opacity: 0; }
+
+        100% { opacity: 1; }
+
+      }
+
+      @-ms-keyframes fade-in {
+
+        0% { opacity: 0; }
+
+        100% { opacity: 1; }
+
+      }
+
+      @-o-keyframes fade-in {
+
+        0% { opacity: 0; }
+
+        100% { opacity: 1; }
+
+      }
+
+      @keyframes fade-in {
+
+        0% { opacity: 0; }
+
+        100% { opacity: 1; }
+
+      }
+
+      .fade-in {
+
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        animation-duration: 1s;
+        animation-fill-mode: both;
+
+      }
+
     </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div class='loading-renderer loading-renderer--html first-contentful-paint'>
+    <div class='loading-renderer loading-renderer--svg first-contentful-paint'>
       <svg
         class="monsieurbadia-logo-svg"
         width="200"
         height="200"
+        preserveAspectRatio="xMaxYMid meet"
         style="cursor : pointer; user-select : none;"
         viewBox="0 0 800 850"
         xmlns="http://www.w3.org/2000/svg">
@@ -511,109 +613,98 @@
           <g class="monsieurbadia-logo-mister-no-face-body">
             <g class="monsieurbadia-logo-mister-no-face-body-neck">
               <path
-                class="animated_0"
                 fill="none"
                 stroke="#000000"
-                strokeWidth="3"
-                strokeMiterlimit="10"
-                strokeDashoffset='0'
-                strokeDasharray='442 444'
+                stroke-width="3"
+                stroke-miterlimit="10"
+                stroke-dashoffset='0'
+                stroke-dasharray='442 444'
                 d="M338.6,407.2L339.7,486.4L400.1,543.4L457.5,486.4L457.5,407.2Z" />
             </g>
             <g class="monsieurbadia-logo-mister-no-face-body-collar">
               <path
-                class="animated_1"
                 fill="none"
                 stroke="#000000"
-                strokeWidth="3"
-                strokeMiterlimit="10"
-                strokeDashoffset='0'
-                strokeDasharray='237 239'
+                stroke-width="3"
+                stroke-miterlimit="10"
+                stroke-dashoffset='0'
+                stroke-dasharray='237 239'
                 d="M339.5,469.1L295.1,518.7L356.2,597.1L400.1,542.1" />
               <path
-                class="animated_2"
                 fill="none"
                 stroke="#000000"
-                strokeWidth="3"
-                strokeMiterlimit="10"
-                strokeDashoffset='0'
-                strokeDasharray='242 244'
+                stroke-width="3"
+                stroke-miterlimit="10"
+                stroke-dashoffset='0'
+                stroke-dasharray='242 244'
                 d="M458,464.6L505.6,518.7L444.5,597.1L400.6,542.1" />
               <path
-                class="animated_3"
                 fill="none"
                 stroke="#000000"
-                strokeWidth="3"
-                strokeMiterlimit="10"
-                strokeDashoffset='0'
-                strokeDasharray='245 247'
+                stroke-width="3"
+                stroke-miterlimit="10"
+                stroke-dashoffset='0'
+                stroke-dasharray='245 247'
                 d="M400.1,542.1L400.1,787.1" />
             </g>
             <g class="monsieurbadia-logo-mister-no-face-body-left-hand">
               <path
-                class="animated_4"
                 fill="none"
                 stroke="#000000"
-                strokeWidth="3"
-                strokeMiterlimit="10"
-                strokeDashoffset='0'
-                strokeDasharray='332 334'
+                stroke-width="3"
+                stroke-miterlimit="10"
+                stroke-dashoffset='0'
+                stroke-dasharray='332 334'
                 d="M295.1,518.7L195.9,565.4L205.9,787.1" />
               <path
-                class="animated_5"
                 fill="none"
                 stroke="#000000"
-                strokeWidth="3"
-                strokeMiterlimit="10"
-                strokeDashoffset='0'
-                strokeDasharray='252 254'
+                stroke-width="3"
+                stroke-miterlimit="10"
+                stroke-dashoffset='0'
+                stroke-dasharray='252 254'
                 d="M218.7,554.7L277.5,637.4L277.5,787.1" />
             </g>
             <g class="monsieurbadia-logo-mister-no-face-body-right-hand">
               <path
-                class="animated_6"
                 fill="none"
                 stroke="#000000"
-                strokeWidth="3"
-                strokeMiterlimit="10"
-                strokeDashoffset='0'
-                strokeDasharray='332 334'
+                stroke-width="3"
+                stroke-miterlimit="10"
+                stroke-dashoffset='0'
+                stroke-dasharray='332 334'
                 d="M506,518.7L605.3,565.4L595.2,787.1" />
               <path
-                class="animated_7"
                 fill="none"
                 stroke="#000000"
-                strokeWidth="3"
-                strokeMiterlimit="10"
-                strokeDashoffset='0'
-                strokeDasharray='252 254'
+                stroke-width="3"
+                stroke-miterlimit="10"
+                stroke-dashoffset='0'
+                stroke-dasharray='252 254'
                 d="M585,554.7L526.2,637.4L526.2,787.1" />
             </g>
             <g class="monsieurbadia-logo-mister-no-face-body-pocket">
               <path
-                class="animated_8"
                 fill="none"
                 stroke="#000000"
-                strokeWidth="3"
-                strokeMiterlimit="10"
-                strokeDashoffset='0'
-                strokeDasharray='53 55'
+                stroke-width="3"
+                stroke-miterlimit="10"
+                stroke-dashoffset='0'
+                stroke-dasharray='53 55'
                 d="M314.6,661.1L367.4,661.1" />
             </g>
           </g>
           <g class="monsieurbadia-logo-mister-no-face-body-head">
             <g class="monsieurbadia-logo-mister-no-face-body-head-structure">
               <path
-                class="animated_9"
                 fill="#1d1d1b"
                   strokeDashoffset='0'
                   strokeDasharray='1046 1048'
                 d="M400.6,502.5L154.1,256.1L400.6,9.6L647,256.1" />
             </g>
             <g class="monsieurbadia-logo-mister-no-face-body-head-eye">
-              <g class="monsieurbadia-logo-mister-no-face-body-head-eye-structure">
+              <g class="">
                 <path
-                  class="animated_10"
                   fill="#ffffff"
                   stroke="#000000"
                   strokeMiterlimit="10"
@@ -623,34 +714,30 @@
               </g>
               <g class="monsieurbadia-logo-mister-no-face-body-head-eye-iris">
                 <path
-                  class="animated_11"
                   fill="none"
                   stroke="#000000"
-                  strokeWidth="2"
-                  strokeMiterlimit="10"
-                  strokeDashoffset='0'
-                  strokeDasharray='123 125'
+                  stroke-width="2"
+                  stroke-miterlimit="10"
+                  stroke-dashoffset='0'
+                  stroke-dasharray='123 125'
                   d="M364.6,308c-17.1-11.6-28.4-31.2-28.4-53.4c0-21.2,10.2-40,26-51.7" />
                 <path
-                  class="animated_12"
                   fill="none"
                   stroke="#1d1d1b"
-                  strokeWidth="2"
-                  strokeMiterlimit="10"
-                  strokeDashoffset='0'
-                  strokeDasharray='120 122'
+                  stroke-width="2"
+                  stroke-miterlimit="10"
+                  stroke-dashoffset='0'
+                  stroke-dasharray='120 122'
                   d="M443.7,206.8c13.1,11.8,21.3,28.8,21.3,47.8c0,23.1-12.1,43.3-30.4,54.7" />
               </g>
               <g class="monsieurbadia-logo-mister-no-face-body-head-eye-pupil">
                 <path
-                  class="animated_13"
                   fill="#000000"
                   strokeDashoffset='0'
                   strokeDasharray='133 135'
                   d="M379.5,254.6A21.1,21.1 0,1,1 421.70000000000005,254.6A21.1,21.1 0,1,1 379.5,254.6" />
                 <g class="eye-pupil-glow">
                   <path
-                    class="animated_14"
                     fill="#FFFFFF"
                     strokeDashoffset='0'
                     strokeDasharray='31 33'
@@ -663,7 +750,7 @@
         <g class='monsieurbadia-logo-mister-no-face-title'>
           <text
             x="50%"
-            y="850"
+            y="845"
             fill="#000000"
             style="
               font-family: sans-serif;
