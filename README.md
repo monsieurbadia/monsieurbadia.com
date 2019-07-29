@@ -60,7 +60,7 @@ Demo &nbsp;
 
 ## Targets
 
-* Bedroom Galaxy App should be : 
+* monsieurbadia web app should be : 
   - secure : Launch under HTTPS
   - fast : 90+/100 on Google Lighthouse Performance
   - accessible and robust > Target: 90+/100 on Google Lighthouse Accessibility
