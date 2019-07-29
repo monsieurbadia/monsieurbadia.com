@@ -34,7 +34,6 @@ import Colors from '../../Common/Colors/Colors';
 import CustomPerspectiveCamera from '../../Common/CustomPerspectiveCamera/CustomPerspectiveCamera';
 import CustomRendererWebGL from '../../Common/CustomRendererWebGL/CustomRendererWebGL';
 import CustomSpotLight from '../../Common/CustomSpotLight/CustomSpotLight';
-import Digits from '../../Common/Digits/Digits';
 import Loading from '../../Common/Loading/Loading';
 import Moon from './Mesh/Moon/Moon';
 
@@ -51,7 +50,6 @@ export default function Card3D () {
   const customPerspectiveCamera = useRef( null );
   const customRendererWebGL = useRef( null );
   const customSpotLight = useRef( null );
-  const digits = useRef( new Digits() );
   const directionalLight = useRef( null );
   const effectPassRendererWebGL = useRef( null );
   const frameID = useRef( null );
@@ -262,17 +260,15 @@ export default function Card3D () {
     clock.current = new Clock( { autoStart: false } );
     clock.current.start();
 
-    console.log( digits.current );
-
     timeoutID.current.renderer = window.setTimeout( () => {
 
       on();
       clearTimer();
-      // renderLoop();
+      renderLoop();
 
-      setIsLoading( true );
+      setIsLoading( false );
   
-    }, 300 );
+    }, 3000 );
 
   };
 

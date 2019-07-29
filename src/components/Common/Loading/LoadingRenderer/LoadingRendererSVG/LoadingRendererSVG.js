@@ -10,6 +10,7 @@ export default function LoadingRendererSVG ( props ) {
       <svg
         className='monsieurbadia-logo-svg'
         preserveAspectRatio='xMaxYMid meet'
+        opacity={ ( animated ) ? '0' : '1' }
         width='200'
         height='200'
         style={ {
@@ -27,6 +28,16 @@ export default function LoadingRendererSVG ( props ) {
           values='0;0;1'
           begin='0ms'
           dur='1000ms'
+          calcMode='linear'
+          repeatCount='none'
+        />
+        <animate
+          id='stroke-dashoffset-opacity-0'
+          attributeName={ ( animated ) ? 'opacity' : '' }
+          attributeType='XML'
+          values='1;1;1'
+          begin='1000ms'
+          dur='3000ms'
           calcMode='linear'
           repeatCount='none'
         />
