@@ -1,13 +1,15 @@
 import { useEffect, useRef } from 'react';
 
+const WEBSITE = 'https://monsieurbadia.com';
+
 const bros = [
-  [ 'coding by @monsieurbadia', 'https://monsieurbadia.com' ]
+  [ 'coding by @monsieurbadia', WEBSITE ]
 ];
 
 const Credits = () => {
 
-  const author = useRef( 'Bedroom Galaxy | Coding by @monsieurbadia' );
-  const website = useRef( 'https://monsieurbadia.com' );
+  const author = useRef( 'Bedroom Galaxy | coding by @monsieurbadia' );
+  const website = useRef( WEBSITE );
 
   useEffect( () => {
 
