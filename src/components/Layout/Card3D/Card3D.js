@@ -1,11 +1,10 @@
 import React, {
   useEffect,
-  useRef
+  useRef,
+  useState
 } from 'react';
 
 import anime from 'animejs';
-
-import { Link } from 'react-router-dom';
 
 import debounce from 'js-utils/debounce';
 
@@ -35,6 +34,7 @@ import Colors from '../../Common/Colors/Colors';
 import CustomPerspectiveCamera from '../../Common/CustomPerspectiveCamera/CustomPerspectiveCamera';
 import CustomRendererWebGL from '../../Common/CustomRendererWebGL/CustomRendererWebGL';
 import CustomSpotLight from '../../Common/CustomSpotLight/CustomSpotLight';
+import Loading from '../../Common/Loading/Loading';
 import Moon from './Mesh/Moon/Moon';
 
 export default function Card3D () {
@@ -45,7 +45,7 @@ export default function Card3D () {
   const card = useRef( null );
   const cardBackgroundFront = useRef( null );
   const cardBackgroundBack = useRef( null );
-  const clock = useRef( new Clock( { autoStart: false } ) );
+  const clock = useRef( null );
   const composerRendererWebGL =  useRef( null );
   const customPerspectiveCamera = useRef( null );
   const customRendererWebGL = useRef( null );
@@ -62,6 +62,8 @@ export default function Card3D () {
   const timeoutID = useRef( { card3d: null, renderer: null } );
   const timer = useRef( { time: 0, duration: 10 } );
 
+  const [ isLoading, setIsLoading ] = useState( true );
+
   useEffect( () => {
 
     if ( canvasRendererWebGL.current !== null ) {
@@ -77,7 +79,7 @@ export default function Card3D () {
 
     }
 
-  } );
+  }, [ canvasRendererWebGL ] );
 
   useEffect( () => {
 
@@ -85,7 +87,7 @@ export default function Card3D () {
 
     return () => ( canvas !== null ) && clear();
 
-  } );
+  }, [ canvasRendererWebGL ] );
 
   const clear = function clear () {
 
@@ -251,6 +253,7 @@ export default function Card3D () {
     orbitControls.current.zoomSpeed = 1.2;
     orbitControls.current.panSpeed = 0.8;
 
+    clock.current = new Clock( { autoStart: false } );
     clock.current.start();
 
     timeoutID.current.renderer = window.setTimeout( () => {
@@ -258,8 +261,10 @@ export default function Card3D () {
       on();
       clearTimer();
       renderLoop();
+
+      setIsLoading( false );
   
-    }, 100 );
+    }, 300 );
 
   };
 
@@ -318,13 +323,14 @@ export default function Card3D () {
       canvas={ card }
       onClick={ onClick }>
       <Card.Face type='front'>
+        { ( isLoading ) && <Loading /> }
         <Card.Background background={ cardBackgroundFront } content={ <canvas className='canvas-renderer-webgl' ref={ canvasRendererWebGL } /> } />
-        <Card.Title title={ <span className='card-face-link'>monsieurbadia</span> } />
+        <Card.Title title={ <a arial-label='email contact' className='card-face-link' href='mailto:iam@monsieurbadia.com'>monsieurbadia</a> } />
         <Card.Content content={ resultCardContentFront() } />
       </Card.Face>
       <Card.Face type='back'>
         <Card.Background background={ cardBackgroundBack } />
-        <Card.Title title={ <Link className='card-face-link' to='/'><span>experiences</span></Link> } />
+        <Card.Title title={ <span className='card-face-link'>experiences</span> } />
         <Card.Content content={
           <div>
             <ul className='card-face-list'>
@@ -341,7 +347,7 @@ export default function Card3D () {
               <li className='card-face-list-item'>
                 <div className='name'>Journey Agency</div>
                 <div className='date'>Août 2015 - Octobre 2016</div>
-                <div className='qualification'>Full-Stack Developper</div>
+                <div className='qualification'>Full Stack Developper</div>
               </li>
             </ul>
             <footer className='card-face-list-footer'>
