@@ -8,39 +8,20 @@ import anime from 'animejs';
 
 import debounce from 'js-utils/debounce';
 
-import OrbitControls from 'three-orbitcontrols';
-
 import {
-  AmbientLight,
   Clock,
-  DirectionalLight,
-  Group,
-  PCFSoftShadowMap,
-  Scene
+  Group
 } from 'three';
-
-import {
-  BlendFunction,
-  BloomEffect,
-  EffectComposer,
-  EffectPass,
-  KernelSize,
-  RenderPass,
-} from 'postprocessing';
 
 // components
 import Card from './Component/Card/Card';
-import Colors from '../../Common/Colors/Colors';
-import CustomPerspectiveCamera from '../../Common/CustomPerspectiveCamera/CustomPerspectiveCamera';
-import CustomRendererWebGL from '../../Common/CustomRendererWebGL/CustomRendererWebGL';
-import CustomSpotLight from '../../Common/CustomSpotLight/CustomSpotLight';
 import Loading from '../../Common/Loading/Loading';
-import Moon from './Mesh/Moon/Moon';
+
+// hooks
+import useSceneManager from './Hook/useSceneManagerHook';
 
 export default function Card3D () {
 
-  const ambientLight = useRef( null );
-  const bloomEffectRendererWebGL = useRef( null );
   const canvasRendererWebGL = useRef( null );
   const card = useRef( null );
   const cardBackgroundFront = useRef( null );
@@ -48,25 +29,21 @@ export default function Card3D () {
   const clock = useRef( null );
   const composerRendererWebGL =  useRef( null );
   const customPerspectiveCamera = useRef( null );
-  const customRendererWebGL = useRef( null );
-  const customSpotLight = useRef( null );
-  const directionalLight = useRef( null );
-  const effectPassRendererWebGL = useRef( null );
   const frameID = useRef( null );
   const groupRendererWebGL = useRef( new Group() );
   const isFlipped = useRef( false );
-  const moon = useRef( null );
   const orbitControls = useRef( null );
-  const renderPassRendererWebGL = useRef( null );
-  const sceneRendererWebGL = useRef( new Scene() );
+  const sceneRendererWebGL = useRef( null );
   const timeoutID = useRef( { card3d: null, renderer: null } );
   const timer = useRef( { time: 0, duration: 10 } );
+
+  const sceneManager = useSceneManager( canvasRendererWebGL.current );
 
   const [ isLoading, setIsLoading ] = useState( true );
 
   useEffect( () => {
 
-    if ( canvasRendererWebGL.current !== null ) {
+    if ( canvasRendererWebGL.current !== null && isLoading ) {
 
       const size = { width: 450, height: 450 };
       const pixelRatio = window.devicePixelRatio;
@@ -79,7 +56,7 @@ export default function Card3D () {
 
     }
 
-  }, [ canvasRendererWebGL ] );
+  }, [ canvasRendererWebGL, isLoading ] );
 
   useEffect( () => {
 
@@ -119,7 +96,7 @@ export default function Card3D () {
 
     window.addEventListener( 'resize', debounce( () => {
     
-      resize();
+      sceneManager.resize();
     
     } ), 1000 );
 
@@ -200,62 +177,17 @@ export default function Card3D () {
 
   const init = async function init ( canvasRendererWebGL, { width, height, pixelRatio } ) {
 
-    sceneRendererWebGL.current.add( groupRendererWebGL.current );
+    sceneRendererWebGL.current = sceneManager.createScene( groupRendererWebGL.current );
 
-    customPerspectiveCamera.current = new CustomPerspectiveCamera( 25, ( width / height ), 0.1, 250 );
-    customPerspectiveCamera.current.position.set( 0, 15, 100 );
+    customPerspectiveCamera.current = sceneManager.createCamera( width, height );
 
-    ambientLight.current = new AmbientLight( Colors.hexa.white, 0.25 );
-    customSpotLight.current = new CustomSpotLight();
-    directionalLight.current = new DirectionalLight( Colors.hexa.white, 0.75 );
-    directionalLight.current.position.setScalar( 100 );
+    sceneManager.createLights( groupRendererWebGL.current );
+    sceneManager.createMeshes( groupRendererWebGL.current );
+    sceneManager.createRenderer( canvasRendererWebGL, width, height, pixelRatio );
 
-    moon.current = new Moon();
+    composerRendererWebGL.current = sceneManager.createRendererEffect( sceneRendererWebGL.current, width, height );
 
-    await customSpotLight.current.create( groupRendererWebGL.current );
-    await moon.current.create( groupRendererWebGL.current );
-
-    groupRendererWebGL.current.add( ambientLight.current );
-    groupRendererWebGL.current.add( directionalLight.current );   
-
-    customRendererWebGL.current = new CustomRendererWebGL( canvasRendererWebGL, { width, height, pixelRatio } );
-    customRendererWebGL.current.shadowMap.enabled = true;
-    customRendererWebGL.current.shadowMap.type = PCFSoftShadowMap;
-    customRendererWebGL.current.toneMappingExposure = Math.pow( 0.95, 4.0 );
-    customRendererWebGL.current.setClearColor( Colors.hexa.green, 1.0 );
-    customRendererWebGL.current.setGamma( true );
-
-    bloomEffectRendererWebGL.current = new BloomEffect( {
-			blendFunction: BlendFunction.SCREEN,
-      distinction: 3.0,
-			kernelSize: KernelSize.MEDIUM,
-			resolutionScale: 0.5
-    } );
-
-    bloomEffectRendererWebGL.current.blendMode.opacity.value = 2.3;
-    bloomEffectRendererWebGL.current.threshold = 0.21;
-    bloomEffectRendererWebGL.current.strength = 1.2;
-    bloomEffectRendererWebGL.current.radius = 0.55;
-
-    composerRendererWebGL.current = new EffectComposer( customRendererWebGL.current );
-
-    renderPassRendererWebGL.current = new RenderPass( sceneRendererWebGL.current, customPerspectiveCamera.current );
-
-    effectPassRendererWebGL.current = new EffectPass( customPerspectiveCamera.current, bloomEffectRendererWebGL.current );
-
-    effectPassRendererWebGL.current.renderToScreen = true;
-
-    composerRendererWebGL.current.setSize( width, height );
-    composerRendererWebGL.current.addPass( renderPassRendererWebGL.current );
-    composerRendererWebGL.current.addPass( effectPassRendererWebGL.current );
-
-    orbitControls.current = new OrbitControls( customPerspectiveCamera.current );
-    orbitControls.current.enabled = false;
-    orbitControls.current.enableRotate = true;
-    orbitControls.current.enableZoom = true;
-    orbitControls.current.rotateSpeed = 1.0;
-    orbitControls.current.zoomSpeed = 1.2;
-    orbitControls.current.panSpeed = 0.8;
+    sceneManager.createControls( customPerspectiveCamera.current );
 
     clock.current = new Clock( { autoStart: false } );
     clock.current.start();
@@ -278,8 +210,9 @@ export default function Card3D () {
 
     timer.current.time += time;
 
-    customSpotLight.current.render( time );
-    moon.current.render( time, isFlipped.current );
+    sceneManager.children.customSpotLight.current.render( time );
+    sceneManager.children.moon.current.render( time, isFlipped.current );
+
     composerRendererWebGL.current.render( time );
 
     if ( parseInt( timer.current.time ) === timer.current.duration ) {
@@ -292,13 +225,9 @@ export default function Card3D () {
 
   const renderLoop = function renderLoop () {
 
-    frameID.current = window.requestAnimationFrame( renderLoop );
-
-    render();
+    frameID.current = composerRendererWebGL.current.renderer.setAnimationLoop( render );
 
   };
-
-  const resize = function resize () {};
 
   const resultCardContentFront = function resultCardContentFront () {
 
