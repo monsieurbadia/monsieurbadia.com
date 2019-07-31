@@ -32,7 +32,6 @@ export default function Card3D () {
   const frameID = useRef( null );
   const groupRendererWebGL = useRef( new Group() );
   const isFlipped = useRef( false );
-  const orbitControls = useRef( null );
   const sceneRendererWebGL = useRef( null );
   const timeoutID = useRef( { card3d: null, renderer: null } );
   const timer = useRef( { time: 0, duration: 10 } );
@@ -68,17 +67,17 @@ export default function Card3D () {
 
   const clear = function clear () {
 
-    clearRenderer( frameID.current );
+    // clearRenderer( frameID.current );
     clearTimeoutID( timeoutID.current.card3d );
     clearTimeoutID( timeoutID.current.renderer );
 
   };
 
-  const clearRenderer = function clearRenderer ( frameID ) {
+  // const clearRenderer = function clearRenderer ( frameID ) {
 
-    window.cancelAnimationFrame( frameID );
+  //   window.cancelAnimationFrame( frameID );
 
-  };
+  // };
 
   const clearTimeoutID = function clearTimeoutID ( timeoutID ) {
 
@@ -192,11 +191,15 @@ export default function Card3D () {
     clock.current = new Clock( { autoStart: false } );
     clock.current.start();
 
+    // sceneManager.createTimer();
+
     timeoutID.current.renderer = window.setTimeout( () => {
 
       on();
       clearTimer();
       renderLoop();
+
+      // sceneManager.render();
 
       setIsLoading( false );
   

@@ -11,6 +11,7 @@ import {
 import SimplexNoise from 'simplex-noise';
 
 // components
+import Colors from '../../../../../../Common/Colors/Colors';
 import { PromiseTextureLoader } from '../../../../../../Common/LoaderManager/LoaderManager';
 
 // images
@@ -26,7 +27,7 @@ const Armure = function Armure () {
   _geometry = new IcosahedronGeometry( 10, 5 );
   _material = new MeshStandardMaterial( {
     alphaTest: 0.5,
-    color: 0xfff,
+    color: Colors.parse( 0xfff ),
     roughness: 0,
     metalness: 1.0,
     aoMapIntensity: 0.2,
@@ -52,6 +53,8 @@ Armure.prototype = Object.assign( Armure.prototype, {
 
   create: async function create ( group ) {
 
+    const anisotropy = 16;
+
     const envMap = await PromiseTextureLoader( envMapImage );
     envMap.mapping = SphericalReflectionMapping;
   
@@ -65,7 +68,7 @@ Armure.prototype = Object.assign( Armure.prototype, {
     _material.alphaMap.wrapT = RepeatWrapping;
     _material.roughnessMap = _material.alphaMap;
     _material.alphaMap.repeat.y = 2;
-    _material.alphaMap.anisotropy = 1;
+    _material.alphaMap.anisotropy = anisotropy;
 
     group.add( this );
 
@@ -82,9 +85,9 @@ Armure.prototype = Object.assign( Armure.prototype, {
       vertex.normalize();
       
       const distance = ( _geometry.parameters.radius + _simplex.noise3D(
-        vertex.x + ( time * 0.000006 ),
-        vertex.y + ( time * 0.00007 ),
-        vertex.z + ( time * 0.00008 )
+        ( vertex.x + ( time * 0.000006 ) ),
+        ( vertex.y + ( time * 0.00007 ) ),
+        ( vertex.z + ( time * 0.00008 ) )
       ) * 2.5 );
       
       vertex.multiplyScalar( distance );

@@ -2,7 +2,10 @@ import React from 'react';
 
 export default function LoadingRendererSVG ( props ) {
 
-  const { animated, className } = props; 
+  const {
+    animated,
+    className
+  } = props; 
 
   return (
 
@@ -39,7 +42,7 @@ export default function LoadingRendererSVG ( props ) {
           begin='1000ms'
           dur='3000ms'
           calcMode='linear'
-          repeatCount='none'
+          repeatCount='indefinite'
         />
         <g className='monsieurbadia-logo-mister-no-face'>
           <g className='monsieurbadia-logo-mister-no-face-body'>

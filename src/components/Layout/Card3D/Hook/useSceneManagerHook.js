@@ -2,6 +2,7 @@ import { useRef } from 'react';
 
 import {
   AmbientLight,
+  Clock,
   DirectionalLight,
   PCFSoftShadowMap,
   Scene
@@ -29,6 +30,7 @@ export default function useSceneManager () {
   
   const ambientLight = useRef( null );
   const bloomEffectRendererWebGL = useRef( null );
+  const clock = useRef( null );
   const customPerspectiveCamera = useRef( null );
   const customRendererWebGL = useRef( null );
   const customSpotLight = useRef( null );
@@ -42,7 +44,12 @@ export default function useSceneManager () {
 
   const createCamera = function createCamera ( width, height ) {
 
-    customPerspectiveCamera.current = new CustomPerspectiveCamera( 25, ( width / height ), 0.1, 250 );
+    const fov = 25;
+    const aspect = ( width / height );
+    const near = 0.1;
+    const far = 250;
+
+    customPerspectiveCamera.current = new CustomPerspectiveCamera( fov, aspect, near, far );
     customPerspectiveCamera.current.position.set( 0, 15, 100 );
 
     return customPerspectiveCamera.current;
@@ -96,6 +103,7 @@ export default function useSceneManager () {
     ambientLight.current = new AmbientLight( Colors.hexa.white, 0.25 );
     customSpotLight.current = new CustomSpotLight();
     directionalLight.current = new DirectionalLight( Colors.hexa.white, 0.75 );
+
     directionalLight.current.position.setScalar( 100 );
 
     await customSpotLight.current.create( group );
@@ -113,9 +121,9 @@ export default function useSceneManager () {
 
   };
 
-  const createRenderer = function createRenderer ( canvasRendererWebGL, width, height, pixelRatio ) {
+  const createRenderer = function createRenderer ( canvas, width, height, pixelRatio ) {
 
-    customRendererWebGL.current = new CustomRendererWebGL( canvasRendererWebGL, { width, height, pixelRatio } );
+    customRendererWebGL.current = new CustomRendererWebGL( { canvas, width, height, pixelRatio } );
     customRendererWebGL.current.shadowMap.enabled = true;
     customRendererWebGL.current.shadowMap.type = PCFSoftShadowMap;
     customRendererWebGL.current.toneMappingExposure = Math.pow( 0.95, 4.0 );
@@ -129,6 +137,7 @@ export default function useSceneManager () {
   const createScene = function createScene ( group ) {
 
     sceneRendererWebGL.current = new Scene();
+    sceneRendererWebGL.current.background = Colors.hexa.green;
 
     sceneRendererWebGL.current.add( group );
 
@@ -136,10 +145,53 @@ export default function useSceneManager () {
 
   };
 
+  const createTimer = function createTimer () {
+
+    clock.current = new Clock( { autoStart: false } );
+
+  };
+
+  const render = function render ( isFlipped ) {
+
+    const time = clock.current.getDelta();
+
+    customSpotLight.current.render( time );
+    moon.current.render( time, isFlipped );
+
+    composerRendererWebGL.current.render( time );
+
+    renderLoop();
+
+  };
+
+  const renderLoop = function renderLoop () {
+
+    start();
+
+  };
+
   const resize = function resize () { console.log( 'resize' ) };
 
+  const start = function start () {
+
+    composerRendererWebGL.current.renderer.setAnimationLoop( render );
+
+  };
+
+  const stop = function stop () {
+
+    composerRendererWebGL.current.renderer.setAnimationLoop( null );
+
+  };
+
+  const clearRenderer = function clearRenderer () {
+
+    stop();
+
+  };
+
   return ( {
-    composer: composerRendererWebGL.current,
+    clearRenderer,
     createCamera,
     createControls,
     createRendererEffect,
@@ -147,6 +199,9 @@ export default function useSceneManager () {
     createMeshes,
     createRenderer,
     createScene,
+    createTimer,
+    render,
+    renderLoop,
     resize,
     children: {
       customSpotLight,

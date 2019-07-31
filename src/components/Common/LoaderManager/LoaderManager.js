@@ -1,4 +1,4 @@
-import { TextureLoader } from 'three';
+import { sRGBEncoding, TextureLoader } from 'three';
 
 /**
  * @name PromiseTextureLoader
@@ -10,8 +10,12 @@ export function PromiseTextureLoader ( hrefURL = '' ) {
 
   return new Promise( ( resolve, reject ) => {
 
+    const anisotropy = 16;
     const textureLoader = new TextureLoader();
+
     textureLoader.load( hrefURL, resolve, undefined, reject );
+    textureLoader.encoding = sRGBEncoding;
+    textureLoader.anisotropy = anisotropy;
 
   } );
 

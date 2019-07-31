@@ -5,6 +5,9 @@ import {
   OctahedronGeometry
 } from 'three';
 
+// components
+import Colors from '../../../../../../Common/Colors/Colors';
+
 let _geometryIcosahedron;
 let _geometryOctahedron;
 let _materialMesh;
@@ -14,7 +17,7 @@ const Sphere = function Sphere () {
   _geometryIcosahedron = new IcosahedronBufferGeometry( 7.8, 5 );
   _geometryOctahedron = new OctahedronGeometry( 9, 0 );
 
-  _materialMesh = new MeshBasicMaterial( { color: 0xffffff } );
+  _materialMesh = new MeshBasicMaterial( { color: Colors.parse( Colors.hexa.white ) } );
 
   const _geometry = _geometryIcosahedron;
   const _material = _materialMesh;
@@ -22,6 +25,8 @@ const Sphere = function Sphere () {
   Mesh.call( this, _geometry, _material );
 
   this.name = 'sphere';
+
+  this.matrixAutoUpdate = false;
 
   this.position.set( 0, 0, 0 );
 
