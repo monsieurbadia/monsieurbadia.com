@@ -11,5 +11,12 @@ export default {
     black: new Vector3( 0, 0, 0 ),
     white: new Vector3( 1.0, 1.0, 1.0 )
   },
-  parse: ( hexa ) => new Color( hexa )
+  parse: ( hexa ) => {
+
+    const color = new Color( hexa );
+
+    color.convertSRGBToLinear();
+
+    return color;
+  }
 };
