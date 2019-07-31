@@ -64,10 +64,10 @@ const Title = ( { title } ) => (
 
 );
 
-const Content = ( { content } ) => (
+const Content = ( { template } ) => (
 
   <div className='card-face-content'>
-    { content }
+    { template }
   </div>
 
 );
