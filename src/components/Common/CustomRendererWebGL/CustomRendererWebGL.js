@@ -1,6 +1,6 @@
 import { WebGLRenderer } from 'three';
 
-const CustomRendererWebGL = function CustomRendererWebGL ( canvas, { width, height, pixelRatio } ) {
+const CustomRendererWebGL = function CustomRendererWebGL ( { canvas, width, height, pixelRatio } ) {
 
   if ( !CustomRendererWebGL.instance ) {
 
@@ -11,7 +11,8 @@ const CustomRendererWebGL = function CustomRendererWebGL ( canvas, { width, heig
     } );
  
     this.autoClear = false;
- 
+    this.physicallyCorrectLights = true;
+
     this.setPixelRatio( ( pixelRatio > 2 ) ? 2 : pixelRatio );
     this.setSize( width, height );
 
@@ -31,6 +32,12 @@ CustomRendererWebGL.prototype = Object.assign( CustomRendererWebGL.prototype, {
 
   setGamma: function setGamma ( isActive = false ) {
 
+    const gammaFactor = 2.2;
+
+    // set the gamma correction so that output colors look
+    // correct on our screens
+
+    this.gammaFactor = gammaFactor;
     this.gammaInput = isActive;
     this.gammaOutput = isActive;  
   
