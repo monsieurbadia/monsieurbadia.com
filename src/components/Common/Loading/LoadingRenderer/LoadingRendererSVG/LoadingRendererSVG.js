@@ -1,11 +1,9 @@
 import React from 'react';
 
-export default function LoadingRendererSVG ( props ) {
-
-  const {
-    animated,
-    className
-  } = props; 
+export default function LoadingRendererSVG ( {
+  animated,
+  className
+} ) {
 
   return (
 

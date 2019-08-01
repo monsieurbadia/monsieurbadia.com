@@ -8,7 +8,7 @@ import {
   Scene
 } from 'three';
 
-import OrbitControls from 'three-orbitcontrols';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import {
   BlendFunction,
@@ -27,7 +27,7 @@ import CustomSpotLight from '../../../Common/CustomSpotLight/CustomSpotLight';
 import Moon from '../Mesh/Moon/Moon';
 
 export default function useSceneManager () {
-  
+
   const ambientLight = useRef( null );
   const bloomEffectRendererWebGL = useRef( null );
   const clock = useRef( null );
@@ -42,14 +42,14 @@ export default function useSceneManager () {
   const renderPassRendererWebGL = useRef( null );
   const sceneRendererWebGL = useRef( null );
 
-  const createCamera = function createCamera ( width, height ) {
+  const createCamera = function createCamera ( { width, height } ) {
 
     const fov = 25;
     const aspect = ( width / height );
     const near = 0.1;
     const far = 250;
 
-    customPerspectiveCamera.current = new CustomPerspectiveCamera( fov, aspect, near, far );
+    customPerspectiveCamera.current = new CustomPerspectiveCamera( { fov, aspect, near, far } );
     customPerspectiveCamera.current.position.set( 0, 15, 100 );
 
     return customPerspectiveCamera.current;
@@ -68,7 +68,7 @@ export default function useSceneManager () {
 
   };
 
-  const createRendererEffect = function createRendererEffect ( scene, width, height ) {
+  const createRendererEffect = function createRendererEffect ( { scene, width, height } ) {
 
     bloomEffectRendererWebGL.current = new BloomEffect( {
 			blendFunction: BlendFunction.SCREEN,
@@ -110,7 +110,7 @@ export default function useSceneManager () {
 
     group.add( ambientLight.current );
     group.add( directionalLight.current );   
-  
+
   };
 
   const createMeshes = async function createMeshes ( group ) {
@@ -121,7 +121,7 @@ export default function useSceneManager () {
 
   };
 
-  const createRenderer = function createRenderer ( canvas, width, height, pixelRatio ) {
+  const createRenderer = function createRenderer ( { canvas, width, height, pixelRatio } ) {
 
     customRendererWebGL.current = new CustomRendererWebGL( { canvas, width, height, pixelRatio } );
     customRendererWebGL.current.shadowMap.enabled = true;

@@ -21,6 +21,7 @@ import Loading from '../../Common/Loading/Loading';
 import curriculum from '../../../assets/json/curriculum.json';
 
 // hooks
+import useCard3DManagerHook from './Hook/useCard3DManagerHook';
 import useSceneManagerHook from './Hook/useSceneManagerHook';
 import useTemplateManagerHook from './Hook/useTemplateManagerHook';
 
@@ -40,6 +41,7 @@ export default function Card3D () {
   const timeoutID = useRef( { card3d: null, renderer: null } );
   const timer = useRef( { time: 0, duration: 10 } );
 
+  const card3DManager = useCard3DManagerHook();
   const sceneManager = useSceneManagerHook( canvasRendererWebGL.current );
   const templateManager = useTemplateManagerHook( curriculum );
 
@@ -109,6 +111,8 @@ export default function Card3D () {
 
       flip();
 
+      card3DManager.flip();
+
     }
 
   };
@@ -135,7 +139,7 @@ export default function Card3D () {
         } );
 
         break;
-      
+
       case false :
 
         cardBackgroundFront.current.appendChild( canvasRendererWebGL.current );
@@ -178,13 +182,13 @@ export default function Card3D () {
 
     sceneRendererWebGL.current = sceneManager.createScene( groupRendererWebGL.current );
 
-    customPerspectiveCamera.current = sceneManager.createCamera( width, height );
+    customPerspectiveCamera.current = sceneManager.createCamera( { width, height } );
 
     sceneManager.createLights( groupRendererWebGL.current );
     sceneManager.createMeshes( groupRendererWebGL.current );
-    sceneManager.createRenderer( canvas, width, height, pixelRatio );
+    sceneManager.createRenderer( { canvas, width, height, pixelRatio } );
 
-    composerRendererWebGL.current = sceneManager.createRendererEffect( sceneRendererWebGL.current, width, height );
+    composerRendererWebGL.current = sceneManager.createRendererEffect( { scene: sceneRendererWebGL.current, width, height } );
 
     sceneManager.createControls( customPerspectiveCamera.current );
 
@@ -236,8 +240,11 @@ export default function Card3D () {
       onClick={ onClick }>
       <Card.Face type='front'>
         { ( isLoading ) && <Loading animated={ true } className='loading-renderer--card3d' /> }
-        <Card.Background background={ cardBackgroundFront } content={ <canvas className='canvas-renderer-webgl' ref={ canvasRendererWebGL } /> } />
-        <Card.Title title={ <a arial-label='email contact' className='card-face-link' href='mailto:iam@monsieurbadia.com'>monsieurbadia</a> } />
+        <Card.Background
+          background={ cardBackgroundFront } 
+          template={ <canvas className='canvas-renderer-webgl' ref={ canvasRendererWebGL } /> } />
+        <Card.Title
+          title={ <a arial-label='email contact' className='card-face-link' href='mailto:iam@monsieurbadia.com'>monsieurbadia</a> } />
         <Card.Content template={ templateManager.setTemplateSkills() } />
       </Card.Face>
       <Card.Face type='back'>

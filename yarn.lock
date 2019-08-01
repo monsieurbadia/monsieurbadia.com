@@ -8269,10 +8269,6 @@ text-table@0.2.0, text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
-three-orbitcontrols@^2.102.2:
-  version "2.102.2"
-  resolved "https://registry.yarnpkg.com/three-orbitcontrols/-/three-orbitcontrols-2.102.2.tgz#4126cbc941227ef03acdd9f2cc0551b7c7271e64"
-
 three-shaders@^1.0.16:
   version "1.0.16"
   resolved "https://registry.yarnpkg.com/three-shaders/-/three-shaders-1.0.16.tgz#b6a5d25fd272a98c67b0ee116ff3a1057b90684a"

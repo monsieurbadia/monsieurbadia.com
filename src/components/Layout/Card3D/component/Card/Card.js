@@ -18,13 +18,13 @@ const Card = ( {
 
 const Background = ( {
   background,
-  content
+  template
 } ) => (
 
   <div
     className='card-face-background'
     ref={ background }>
-    { content }
+    { template }
   </div>
 
 );

@@ -12,7 +12,7 @@ import {
    * @param {Number} near — camera frustum near plane.
    * @param {Number} far — camera frustum far plane. */
 
-const CustomPerspectiveCamera = function CustomPerspectiveCamera ( fov, aspect, near, far ) {
+const CustomPerspectiveCamera = function CustomPerspectiveCamera ( { fov, aspect, near, far } ) {
 
   PerspectiveCamera.call( this, fov, aspect, near, far );
 
@@ -34,17 +34,15 @@ CustomPerspectiveCamera.prototype = Object.assign( CustomPerspectiveCamera.proto
 
   name: 'custom-perspective-camera',
 
-  render: function render ( time, target ) {
+  render: function render ( time, { position } ) {
 
-    const { motion, position } = this;
+    this.motion.quaternion.setFromAxisAngle( this.motion.axis.x, ( this.motion.angle + ( time * 0.005 ) ) );
+    this.motion.quaternion.setFromAxisAngle( this.motion.axis.y, ( this.motion.angle + ( time * 0.005 ) ) );
+    this.motion.quaternion.setFromAxisAngle( this.motion.axis.z, ( this.motion.angle + ( time * 0.005 ) ) );
 
-    motion.quaternion.setFromAxisAngle( motion.axis.x, ( motion.angle + ( time * 0.005 ) ) );
-    motion.quaternion.setFromAxisAngle( motion.axis.y, ( motion.angle + ( time * 0.005 ) ) );
-    motion.quaternion.setFromAxisAngle( motion.axis.z, ( motion.angle + ( time * 0.005 ) ) );
+    this.position.applyQuaternion( this.motion.quaternion );
 
-    position.applyQuaternion( motion.quaternion );
-
-    this.lookAt( target.position );
+    this.lookAt( position );
     this.updateProjectionMatrix();
 
   }
