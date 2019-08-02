@@ -5,21 +5,21 @@
         "id": 0,
         "date": "Avril 2018 - Present",
         "name": "Sfeir",
-        "qualification": "Frontend Developper",
+        "qualification": "Front End Developer",
         "category": "experiences"
       },
       {
         "id": 1,
         "date": "Octobre 2016 - Avril 2018",
         "name": "Valtech",
-        "qualification": "Frontend Developper",
+        "qualification": "Front End Developer",
         "category": "experiences"
       },
       {
         "id": 2,
         "date": "Août 2015 - Octobre 2016",
         "name": "Journey Agency",
-        "qualification": "Full-Stack Developper",
+        "qualification": "Full Stack Developer",
         "category": "experiences"
       }
     ],
