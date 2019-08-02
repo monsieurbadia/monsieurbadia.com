@@ -59,7 +59,7 @@
         align-items: center;
         justify-content: center;
         font-family: sans-serif;
-        background-image: linear-gradient( 0deg,var( --color-pink-100 ) 0,var( --color-pink-200 ) );
+        background-image: linear-gradient( 0deg, var( --color-pink-100 ) 0, var( --color-pink-200 ) );
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
 
@@ -91,62 +91,6 @@
         align-items: center;
         justify-content: center;
         position: absolute;
-
-      }
-
-      .loading-renderer--svg {
-
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-
-      }
-      
-      .loading-renderer--svg-title {
-
-        font-size: 16px;
-        font-weight: 400;
-        letter-spacing: 2px;
-        color: var( --color-gold-100 );
-        text-transform: uppercase;
-
-      }
-
-      .loading-renderer--html {
-
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        position: absolute;
-        user-select: none;
-
-      }
-
-      .loading-renderer-html-icon {
-        
-        width: 25px;
-
-      }
-
-      .loading-renderer-html-title {
-        
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 9px;
-        font-weight: 400;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-
-      }
-
-      .loading-renderer-html-title-slot {
-
-        margin: 0 5px 0 5px;
 
       }
 
@@ -195,7 +139,7 @@
 
       .card:hover {
 
-        box-shadow: 0 14px 28px rgba( 0, 0, 0, 0.25 ), 0 10px 10px rgba( 0, 0, 0, 0.22 );
+        box-shadow: 0 0.875rem 1.75rem rgba( 0, 0, 0, 0.25 ), 0 0.625rem 0.625rem rgba( 0, 0, 0, 0.22 );
 
       }
 
@@ -245,7 +189,7 @@
         justify-content: center;
         position: relative;
         color: var( --color-white-100 );
-        font-size: 20px;
+        font-size: 1.25rem;
         font-style: normal;
         font-weight: 100;
         letter-spacing: 2px;
@@ -306,8 +250,8 @@
 
       .card-face-content > div {
 
-        right: 20px;
-        bottom: 20px;
+        right: 1.25rem;
+        bottom: 1.25rem;
         position: absolute;
         color: var( --color-yellow-100 );
         font-size: 14px;
@@ -319,7 +263,7 @@
 
       .icon {
 
-        width: 40px;
+        width: 	2.5rem;
         position: absolute;
         fill: var( --color-yellow-100 );
 
@@ -327,13 +271,13 @@
 
       .icon.icon--bubble.icon--top {
 
-        top: 25px;
+        top: 1.5625rem;
 
       }
 
       .icon.icon--bubble.icon--bottom {
 
-        bottom: 25px;
+        bottom: 1.5625rem;
         -webkit-transform: rotate( 180deg );
         -moz-transform: rotate( 180deg );
         -ms-transform: rotate( 180deg );
@@ -345,9 +289,9 @@
       .icon--rotate {
 
         z-index: 5;
-        top: 20px;
-        right: 25px;
-        width: 25px;
+        top: 1.25rem;
+        right: 1.5625rem;
+        width: 1.5625rem;
         height: auto;
         position: absolute;
         transform: rotateY( 0deg );
@@ -357,7 +301,7 @@
 
       .icon--rotate:hover {
 
-        transform: rotateY(180deg);
+        transform: rotateY( 180deg );
 
       }
 
@@ -374,7 +318,7 @@
       .card-face--front .card-face-list-item {
 
         font-weight: 100;
-        font-size: 12px;
+        font-size: 0.75rem;
         flex: 1 1 120px;
         margin-bottom: 2px;
         color: var( --color-gold-100 );
@@ -403,11 +347,11 @@
       .card-face--back .card-face-list-item {
 
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 1.25rem;
         display: flex;
         flex-direction: column;
         color: var( --color-gold-100 );
-        font-size: 12px;
+        font-size: 0.75rem;
         text-transform: uppercase;
 
       }
@@ -423,7 +367,7 @@
         width: 100%;
         display: flex;
         flex-direction: row;
-        align-items: flex-end;
+        align-items: center;
         justify-content: flex-end;
   
       }
@@ -431,7 +375,7 @@
       .card-face--back .card-face-list-item .name {
 
         margin-bottom: 5px;
-        font-size: 12px;
+        font-size: 0.75rem;
         color: var( --color-yellow-100 );
         font-weight: 400;
 
@@ -440,7 +384,7 @@
       .card-face--back .card-face-list-item .date {
 
         margin-bottom: 1px;
-        font-size: 12px;
+        font-size: 0.75rem;
         font-weight: 300;
         text-transform: capitalize;
 
@@ -449,7 +393,7 @@
 
       .card-face--back .card-face-list-item .qualification {
 
-        font-size: 12px;
+        font-size: 0.75rem;
         font-weight: 100;
         text-transform: capitalize;
 
@@ -471,7 +415,7 @@
 
       .icon-social {
 
-        margin-right: 35px;
+        margin-right: 2.1875rem;
         position: relative;
 
       }
@@ -484,19 +428,19 @@
 
       .icon-github {
 
-        width: 20px;
+        width: 1.25rem;
 
       }
 
       .icon-codepen {
 
-        width: 65px;
+        width: 4rem;
 
       }
 
       .icon-linkedin {
 
-        width: 20px;
+        width: 1.25rem;
 
       }
 
@@ -722,12 +666,12 @@
             fill="#000000"
             style="
               font-family: sans-serif;
-              font-size: 50px;
+              font-size: 3.125rem;
               font-weight: 400;
               text-anchor: middle;
               text-transform: uppercase;
               white-space: pre-line;
-              letter-spacing: 0px">
+              letter-spacing: 0rem">
             monsieurbadia
           </text>
         </g>
