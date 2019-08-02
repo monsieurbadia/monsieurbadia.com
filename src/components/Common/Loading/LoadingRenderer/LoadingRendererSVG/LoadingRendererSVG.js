@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './LoadingRendererSVG.sass';
+
 export default function LoadingRendererSVG ( {
   animated,
   className
@@ -9,7 +11,7 @@ export default function LoadingRendererSVG ( {
 
     <div className={ `loading-renderer loading-renderer--svg ${ className }` }>
       <svg
-        className='monsieurbadia-logo-svg'
+        className='monsieurbadia-logo'
         preserveAspectRatio='xMaxYMid meet'
         opacity={ ( animated ) ? '0' : '1' }
         width='200'
