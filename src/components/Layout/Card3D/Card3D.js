@@ -21,7 +21,7 @@ import Loading from '../../Common/Loading/Loading';
 import curriculum from '../../../assets/json/curriculum.json';
 
 // hooks
-import useCard3DManagerHook from './Hook/useCard3DManagerHook';
+// import useCard3DManagerHook from './Hook/useCard3DManagerHook';
 import useSceneManagerHook from './Hook/useSceneManagerHook';
 import useTemplateManagerHook from './Hook/useTemplateManagerHook';
 
@@ -34,14 +34,13 @@ export default function Card3D () {
   const clock = useRef( null );
   const composerRendererWebGL =  useRef( null );
   const customPerspectiveCamera = useRef( null );
-  const frameID = useRef( null );
   const groupRendererWebGL = useRef( new Group() );
   const isFlipped = useRef( false );
   const sceneRendererWebGL = useRef( null );
   const timeoutID = useRef( { card3d: null, renderer: null } );
   const timer = useRef( { time: 0, duration: 10 } );
 
-  const card3DManager = useCard3DManagerHook();
+  // const card3DManager = useCard3DManagerHook();
   const sceneManager = useSceneManagerHook( canvasRendererWebGL.current );
   const templateManager = useTemplateManagerHook( curriculum );
 
@@ -111,7 +110,7 @@ export default function Card3D () {
 
       flip();
 
-      card3DManager.flip();
+      // card3DManager.flip();
 
     }
 
@@ -163,6 +162,16 @@ export default function Card3D () {
 
   };
 
+  const onInit = function onInit () {
+
+    on();
+    clearTimer();
+    renderLoop();
+
+    setIsLoading( false );
+
+  };
+
   const flip = function flip () {
 
     if ( card.current !== null ) {
@@ -195,15 +204,7 @@ export default function Card3D () {
     clock.current = new Clock( { autoStart: false } );
     clock.current.start();
 
-    timeoutID.current.renderer = window.setTimeout( () => {
-
-      on();
-      clearTimer();
-      renderLoop();
-
-      setIsLoading( false );
-  
-    }, 3000 );
+    timeoutID.current.renderer = window.setTimeout( onInit, 3000 );
 
   };
 
@@ -228,7 +229,7 @@ export default function Card3D () {
 
   const renderLoop = function renderLoop () {
 
-    frameID.current = composerRendererWebGL.current.renderer.setAnimationLoop( render );
+    composerRendererWebGL.current.renderer.setAnimationLoop( render );
 
   };
 
