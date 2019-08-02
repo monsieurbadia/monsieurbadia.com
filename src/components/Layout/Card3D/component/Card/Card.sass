@@ -1,0 +1,207 @@
+.card
+
+  width: 100%
+  height: 100%
+  cursor: pointer
+  position: relative
+  box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.12 ), 0 1px 2px rgba( 0, 0, 0, 0.24 )
+  background-color: var( --color-green-100 )
+  user-select: none
+  transform: rotateY( 0deg )
+  -webkit-transform-style: preserve-3d
+  -moz-transform-style: preserve-3d
+  -ms-transform-style: preserve-3d
+  -o-transform-style: preserve-3d
+  transform-style: preserve-3d
+  transition: transform 1000ms, box-shadow 500ms cubic-bezier( 0.25, 0.8, 0.25, 1.0 )
+
+  &:hover
+
+    box-shadow: 0 0.875rem 1.75rem rgba( 0, 0, 0, 0.25 ), 0 0.625rem 0.625rem rgba( 0, 0, 0, 0.22 )
+
+  &.is-flipped
+
+    transform: rotateY( 180deg )
+
+  &-face
+
+    $card-face: &
+ 
+    width: 100%
+    height: 100%
+    display: grid
+    grid-template-columns: 100px calc( 100% - 100px )
+    position: absolute
+    background-color: var( --color-green-100 )
+    color: var( --color-black-100 )
+    font-size: 40px
+    font-weight: bold
+    text-align: center
+    -webkit-backface-visibility: hidden
+    -moz-backface-visibility: hidden
+    -ms-backface-visibility: hidden
+    -o-backface-visibility: hidden
+    backface-visibility: hidden
+
+    &--front
+
+      transform: rotateX( 0deg )
+
+      #{ $card-face }-list
+
+        margin: 0
+        padding: 0
+        display: flex
+        list-style: none
+        flex-wrap: wrap
+
+      #{ $card-face }-list-title
+
+        margin: 0 0 5px 0
+        display: flex
+        justify-content: flex-end
+        font-weight: 300
+        text-transform: uppercase
+
+      #{ $card-face }-list-item
+
+        font-weight: 100
+        font-size: 0.75rem
+        flex: 1 1 120px
+        margin-bottom: 2px
+        color: var( --color-gold-100 )
+
+    &--back
+
+      transform: rotateY( 180deg )
+
+      #{ $card-face }-list
+
+        margin: 0
+        padding: 0
+        display: flex
+        list-style: none
+        flex-wrap: wrap
+
+      #{ $card-face }-list-item
+
+        width: 100%
+        margin-bottom: 1.25rem
+        display: flex
+        flex-direction: column
+        color: var( --color-gold-100 )
+        font-size: 0.75rem
+        text-transform: uppercase
+      
+      #{ $card-face }-list-item:last-child
+
+        margin-bottom: 30px
+
+      #{ $card-face }-content
+
+        display: flex
+        align-items: flex-end
+        position: relative
+        letter-spacing: 2px
+
+      #{ $card-face }-footer
+
+        width: 100%
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: flex-end
+
+      #{ $card-face }-list-item .name
+      #{ $card-face }-list-item .date
+      #{ $card-face }-list-item .qualification
+
+        font-size: 0.75rem
+
+      #{ $card-face }-list-item .date
+      #{ $card-face }-list-item .qualification
+
+        text-transform: capitalize;
+
+      #{ $card-face }-list-item .name
+
+        margin-bottom: 5px
+        color: var( --color-yellow-100 )
+        font-weight: 400
+
+      #{ $card-face }-list-item .date
+
+        margin-bottom: 1px;
+        font-weight: 300;
+
+      #{ $card-face }-list-item .qualification
+
+        font-weight: 100;
+
+    &-background
+
+      width: 100%
+      height: 100%
+      position: absolute
+
+    &-title-wrapper
+
+      width: 100%
+      height: 100%
+      display: flex
+      justify-content: center
+      position: relative
+      color: var( --color-white-100 )
+      font-size: 1.25rem
+      font-style: normal
+      font-weight: 100
+      letter-spacing: 2px
+      text-align: center
+      text-transform: uppercase
+
+    &-link
+
+      width: 100%
+      height: 100%
+      display: flex
+      flex-direction: column-reverse
+      align-items: center
+      justify-content: center
+      color: var( --color-gold-100 )
+      font-family: sans-serif
+      text-decoration: none
+      writing-mode: tb-lr
+      writing-mode: vertical-lr
+      -webkit-transform: rotate( -180deg )
+      -moz-transform: rotate( -180deg )
+      -ms-transform: rotate( -180deg )
+      -o-transform: rotate( -180deg )
+      transform: rotate( -180deg )
+
+      span
+
+        display: block
+        white-space: nowrap
+
+    &-title,
+    &-content
+
+      max-height: 450px
+
+    &-content
+
+      > div
+
+        right: 1.25rem
+        bottom: 1.25rem
+        position: absolute
+        color: var( --color-yellow-100 )
+        font-size: 0.875rem
+        font-weight: 300
+        letter-spacing: 2px
+        text-align: right
+
+    &-icon
+
+      height: auto;
+

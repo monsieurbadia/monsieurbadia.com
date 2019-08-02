@@ -1,5 +1,8 @@
 import React from 'react';
 
+// design
+import './Card.sass';
+
 const Card = ( {
   canvas,
   children,

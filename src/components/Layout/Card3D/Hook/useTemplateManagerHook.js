@@ -49,7 +49,7 @@ export default function useTemplateManagerHook ( { data: { experiences, skills, 
 
         <a
           aria-label={ name }
-          className={ `icon icon-social icon-${ name }` }
+          className={ `card-face-icon icon icon-social icon-${ name }` }
           href={ hrefURL }
           key={ id }
           rel='noopener noreferrer'
@@ -67,7 +67,7 @@ export default function useTemplateManagerHook ( { data: { experiences, skills, 
         <ul className='card-face-list'>
           { contentList }
         </ul>
-        <footer className='card-face-list-footer'>
+        <footer className='card-face-footer'>
           { contentFooter }
         </footer>
       </div>
