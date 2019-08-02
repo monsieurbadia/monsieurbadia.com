@@ -12,9 +12,9 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="preconnect" href="https://monsieurbadia.com" crossorigin>
     <title>monsieurbadia • Creative Coder</title>
-    <style media="screen">
+    <style>
 
-      /* https://gist.github.com/mattdenner/518776 */
+      /* critical css */
       
       :root {
 
@@ -22,6 +22,8 @@
         --color-blue-100: rgb( 0, 0, 255 );
         --color-gold-100: rgb( 176, 147, 90 );
         --color-green-100: rgb( 4, 20, 19 );
+        --color-pink-100: rgb( 250, 208, 196 );
+        --color-pink-200: rgb( 255, 209, 255 );
         --color-red-100: rgb( 255, 0, 0 );
         --color-yellow-100: rgb( 241, 196, 15 );
         --color-white-100: rgb( 255, 255, 255 );
@@ -57,7 +59,7 @@
         align-items: center;
         justify-content: center;
         font-family: sans-serif;
-        background-image: linear-gradient( 0deg,rgb( 250, 208, 196 ) 0,rgb( 255, 209, 255 ) );
+        background-image: linear-gradient( 0deg,var( --color-pink-100 ) 0,var( --color-pink-200 ) );
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
 
@@ -94,63 +96,15 @@
 
       .loading-renderer--svg {
 
-        position: absolute;
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+        position: absolute;
 
       }
-
-      .loading-renderer--svg.loading-renderer--card3d {
-
-        transform: scale( 0.85 );
-
-      }
-
-      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body path {
-
-        stroke: var( --color-gold-100 );
-
-      }
-
-      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-title text {
-
-        fill: var( --color-gold-100 );
-
-      }
-
-      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body-head-structure path {
-
-        fill: var( --color-gold-100 );
-
-      }
-
-      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body-head-eye-structure path {
-
-        stroke: var( --color-gold-100 );
-
-      }
-
-      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body-head-eye-pupil path {
-
-        fill: var( --color-gold-100 );
-
-      }
-
-      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body-head-eye-pupil .eye-pupil-glow path {
-
-        fill: var( --color-white-100 );
-
-      }
-
-      .loading-renderer--svg.loading-renderer--card3d .monsieurbadia-logo-svg .monsieurbadia-logo-mister-no-face-body-head-eye-iris path {
-
-        stroke: var( --color-gold-100 );
-
-      }
-
+      
       .loading-renderer--svg-title {
 
         font-size: 16px;
@@ -212,7 +166,6 @@
         width: 450px;
         height: 450px;
         position: relative;
-
         -webkit-perspective: 5000px;
         -moz-perspective: 5000px;
         -ms-perspective: 5000px;
@@ -227,7 +180,7 @@
         height: 100%;
         cursor: pointer;
         position: relative;
-        box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.12 ), 0 1px 2px rgba( 0,0,0,0.24 );
+        box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.12 ), 0 1px 2px rgba( 0, 0, 0, 0.24 );
         background-color: var( --color-green-100 );
         user-select: none;
         transform: rotateY( 0deg );
@@ -236,13 +189,13 @@
         -ms-transform-style: preserve-3d;
         -o-transform-style: preserve-3d;
         transform-style: preserve-3d;
-        transition: transform 1000ms, box-shadow 500ms cubic-bezier( 0.25,.8,.25,1.0 );
+        transition: transform 1000ms, box-shadow 500ms cubic-bezier( 0.25, 0.8, 0.25, 1.0 );
 
       }
 
       .card:hover {
 
-        box-shadow: 0 14px 28px rgba( 0,0,0,0.25 ), 0 10px 10px rgba( 0,0,0,0.22 );
+        box-shadow: 0 14px 28px rgba( 0, 0, 0, 0.25 ), 0 10px 10px rgba( 0, 0, 0, 0.22 );
 
       }
 
@@ -264,7 +217,6 @@
         font-size: 40px;
         font-weight: bold;
         text-align: center;
-
         -webkit-backface-visibility: hidden;
         -moz-backface-visibility: hidden;
         -ms-backface-visibility: hidden;
@@ -315,9 +267,11 @@
         text-decoration: none;
         writing-mode: tb-lr;
         writing-mode: vertical-lr;
-        -webkit-transform: rotate(-180deg);
-        -ms-transform: rotate(-180deg);
-        transform: rotate(-180deg);
+        -webkit-transform: rotate( -180deg );
+        -moz-transform: rotate( -180deg );
+        -ms-transform: rotate( -180deg );
+        -o-transform: rotate( -180deg );
+        transform: rotate( -180deg );
 
       }
 
@@ -380,9 +334,11 @@
       .icon.icon--bubble.icon--bottom {
 
         bottom: 25px;
-        -webkit-transform: rotate(180deg);
-        -ms-transform: rotate(180deg);
-        transform: rotate(180deg);
+        -webkit-transform: rotate( 180deg );
+        -moz-transform: rotate( 180deg );
+        -ms-transform: rotate( 180deg );
+        -o-transform: rotate( 180deg );
+        transform: rotate( 180deg );
 
       }
 
@@ -394,7 +350,7 @@
         width: 25px;
         height: auto;
         position: absolute;
-        transform: rotateY(0deg);
+        transform: rotateY( 0deg );
         transition: transform 1000ms;
 
       }
@@ -435,7 +391,7 @@
       }
 
       .card-face--back .card-face-list {
-        
+
         margin: 0;
         padding: 0;
         display: flex;
@@ -448,11 +404,10 @@
 
         width: 100%;
         margin-bottom: 20px;
-        font-size: 12px;
-        line-height: 15px;
         display: flex;
         flex-direction: column;
         color: var( --color-gold-100 );
+        font-size: 12px;
         text-transform: uppercase;
 
       }
@@ -484,9 +439,9 @@
 
       .card-face--back .card-face-list-item .date {
 
+        margin-bottom: 1px;
         font-size: 12px;
         font-weight: 300;
-        margin-bottom: 1px;
         text-transform: capitalize;
 
 
@@ -600,7 +555,7 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class='loading-renderer loading-renderer--svg first-contentful-paint'>
       <svg
-        class="monsieurbadia-logo-svg"
+        class="monsieurbadia-logo"
         width="200"
         height="200"
         preserveAspectRatio="xMaxYMid meet"
@@ -780,7 +735,7 @@
     </div>
     <div id="root"></div>
     <script>
-      
+
       ( function ( window, document ) {
 
         const onDOMContentLoaded = function onDOMContentLoaded () {
@@ -798,7 +753,7 @@
         window.addEventListener( 'DOMContentLoaded', onDOMContentLoaded, false );
 
       } ( window, document ) );
-    
+
     </script>
   </body>
 </html>
