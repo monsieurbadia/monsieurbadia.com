@@ -69,6 +69,12 @@ Demo &nbsp;
 
 # ![monsieurbadia Lighthouse Reports](https://github.com/monsieurbadia/monsieurbadia.github.io/blob/master//assets/github/monsieurbadia/monsieurbadia-lighthouse-reports.png?)
 
+## Optimizations
+
+* use the Mr.doob's [Code Style™](https://github.com/mrdoob/three.js/wiki/Mr.doob's-Code-Style%E2%84%A2)
+* use asynchronous methods to load model and textures
+* limit the ```devicePixelRatio```
+
 ## License
 
 Copyright ©️ 2019 William Badiabantou
