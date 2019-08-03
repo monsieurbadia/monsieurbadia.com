@@ -1,4 +1,8 @@
-import { useRef } from 'react';
+import {
+  useContext,
+  useEffect,
+  useRef
+} from 'react';
 
 import {
   AmbientLight,
@@ -26,7 +30,11 @@ import CustomRendererWebGL from '../../../Common/CustomRendererWebGL/CustomRende
 import CustomSpotLight from '../../../Common/CustomSpotLight/CustomSpotLight';
 import Moon from '../Mesh/Moon/Moon';
 
+import { Card3DContext } from '../Reducer/reducer.card3D';
+
 export default function useSceneManager () {
+
+  const { state } = useContext( Card3DContext );
 
   const ambientLight = useRef( null );
   const bloomEffectRendererWebGL = useRef( null );
@@ -41,6 +49,23 @@ export default function useSceneManager () {
   const orbitControls = useRef( null );
   const renderPassRendererWebGL = useRef( null );
   const sceneRendererWebGL = useRef( null );
+  const timeoutID = useRef( null );
+
+  useEffect( () => {
+
+    if ( moon.current !== null ) {
+      
+      timeoutID.current = window.setTimeout( () => moon.current.animated = state.isFlip.value, 250 );
+
+    }
+
+  }, [ state, moon ] );
+
+  const clearRenderer = function clearRenderer () {
+
+    stop();
+
+  };
 
   const createCamera = function createCamera ( { width, height } ) {
 
@@ -151,12 +176,12 @@ export default function useSceneManager () {
 
   };
 
-  const render = function render ( isFlipped ) {
+  const render = function render () {
 
     const time = clock.current.getDelta();
 
     customSpotLight.current.render( time );
-    moon.current.render( time, isFlipped );
+    moon.current.render( time );
 
     composerRendererWebGL.current.render( time );
 
@@ -184,12 +209,6 @@ export default function useSceneManager () {
 
   };
 
-  const clearRenderer = function clearRenderer () {
-
-    stop();
-
-  };
-
   return ( {
     clearRenderer,
     createCamera,
@@ -204,6 +223,7 @@ export default function useSceneManager () {
     renderLoop,
     resize,
     children: {
+      customPerspectiveCamera,
       customSpotLight,
       moon
     }

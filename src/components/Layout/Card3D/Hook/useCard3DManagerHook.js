@@ -1,26 +1,27 @@
-import { useEffect, useReducer, useRef } from 'react';
+import {
+  useContext,
+  useEffect,
+  useRef
+} from 'react';
 
-// import anime from 'animejs';
+import anime from 'animejs';
 
-// import { Clock } from 'three';
-
-import { initialStateCard3D, reducerCard3D } from '../Reducer/reducer.card3D';
-
-let isFlippedFlag = false;
+import { Card3DContext } from '../Reducer/reducer.card3D';
 
 export default function useCard3DManagerHook () {
 
-  // const clock = useRef( new Clock() );
-  const timeoutID = useRef( { card3d: null, renderer: null } );
+  const timeoutID = useRef( null );
   const timer = useRef( { time: 0, duration: 10 } );
 
-  const [ isFlipped, setIsFlipped ] = useReducer( reducerCard3D, initialStateCard3D );
+  const { state } = useContext( Card3DContext );
 
   useEffect( () => {
 
-    // console.log( isFlipped );
+    const { isFlip } = state;
 
-  }, [ isFlipped  ] );
+    flip( isFlip );
+
+  } );
 
   const clearTimeoutID = function clearTimeoutID ( timeoutID ) {
 
@@ -34,79 +35,67 @@ export default function useCard3DManagerHook () {
 
   };
 
-  const onFlip = function onFlip ( /* { camera, canvas, card } */ ) {
+  const onFlip = function onFlip ( { camera, canvas, card, value } ) {
 
-    // const { position } = camera;
+    if ( card.face.back !== null ) {
 
-    isFlippedFlag = !isFlippedFlag;
+      const { position } = camera;
 
-    ( isFlippedFlag )
-      ? setIsFlipped( { type: 'is-flipped-to-back', payload: isFlippedFlag } )
-      : setIsFlipped( { type: 'is-flipped-to-front', payload: isFlippedFlag } );
+      switch ( value ) {
 
-    // switch ( isFlippedCurrent.current ) {
+        case true :
 
-    //   case true :
+          card.face.back.appendChild( canvas );
 
-    //     card.cardBackgroundBack.current.appendChild( canvas );
+          anime( {
+            targets: position,
+            z: 150,
+            round: 1,
+            delay: 150,
+            duration: 300,
+            easing: 'easeInQuad'
+          } );
 
-    //     anime( {
-    //       targets: position,
-    //       z: 150,
-    //       round: 1,
-    //       delay: 150,
-    //       duration: 300,
-    //       easing: 'easeInQuad'
-    //     } );
+          break;
 
-    //     break;
+        case false :
 
-    //   case false :
+          card.face.front.appendChild( canvas );
 
-    //     card.cardBackgroundFront.current.appendChild( canvas );
+          anime( {
+            targets: position,
+            z: 100,
+            round: 1,
+            delay: 150,
+            duration: 300,
+            easing: 'easeOutQuad'
+          } );
 
-    //     anime( {
-    //       targets: position,
-    //       z: 100,
-    //       round: 1,
-    //       delay: 150,
-    //       duration: 300,
-    //       easing: 'easeOutQuad'
-    //     } );
+          break;
 
-    //     break;
+        default :
 
-    //   default :
+          return null;
 
-    //     return null;
+      }
 
-    // }
+    }
 
   };
 
-  const flip = function flip ( /* { domElement, camera, canvas, card } */ ) {
+  const flip = async function flip ( isFlip ) {
 
-    // if ( domElement !== null ) {
+    clearTimer();
+    clearTimeoutID( timeoutID.current );
 
-    //   domElement.classList.toggle( 'is-flipped' );
-
-      // clearTimer();
-      // clearTimeoutID( timeoutID.current.card3d );
-      // setIsFlipped( isFlippedCurrent.current );
-
-      timeoutID.current.card3d = window.setTimeout( () => onFlip( /* { camera, canvas, card } */ ), 250 );
-
-    // }
+    timeoutID.current = window.setTimeout( () => onFlip( isFlip ), 250 );
 
   };
 
   return ( {
-    isFlipped,
     flip,
     clearTimeoutID,
-    clearTimer,
-    setIsFlipped,
-    onFlip
+    clearTimer
   } );
 
 };

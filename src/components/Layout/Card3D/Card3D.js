@@ -1,4 +1,5 @@
 import React, {
+  useContext,
   useEffect,
   useRef,
   useState
@@ -21,26 +22,27 @@ import Loading from '../../Common/Loading/Loading';
 import curriculum from '../../../assets/json/curriculum.json';
 
 // hooks
-// import useCard3DManagerHook from './Hook/useCard3DManagerHook';
+import useCard3DManagerHook from './Hook/useCard3DManagerHook';
 import useSceneManagerHook from './Hook/useSceneManagerHook';
 import useTemplateManagerHook from './Hook/useTemplateManagerHook';
+import { Card3DContext } from './Reducer/reducer.card3D';
 
 export default function Card3D () {
+
+  const { state, dispatch } = useContext( Card3DContext );
 
   const canvasRendererWebGL = useRef( null );
   const card = useRef( null );
   const cardBackgroundFront = useRef( null );
   const cardBackgroundBack = useRef( null );
-  const clock = useRef( null );
   const composerRendererWebGL =  useRef( null );
   const customPerspectiveCamera = useRef( null );
   const groupRendererWebGL = useRef( new Group() );
-  const isFlipped = useRef( false );
   const sceneRendererWebGL = useRef( null );
   const timeoutID = useRef( { card3d: null, renderer: null } );
   const timer = useRef( { time: 0, duration: 10 } );
 
-  // const card3DManager = useCard3DManagerHook();
+  const card3DManager = useCard3DManagerHook();
   const sceneManager = useSceneManagerHook( canvasRendererWebGL.current );
   const templateManager = useTemplateManagerHook( curriculum );
 
@@ -48,7 +50,7 @@ export default function Card3D () {
 
   useEffect( () => {
 
-    if ( canvasRendererWebGL.current !== null && isLoading ) {
+    if ( isLoading ) {
 
       const canvas = canvasRendererWebGL.current;
       const pixelRatio = window.devicePixelRatio;
@@ -75,20 +77,13 @@ export default function Card3D () {
 
   const clear = function clear () {
 
-    clearTimeoutID( timeoutID.current.card3d );
-    clearTimeoutID( timeoutID.current.renderer );
-
-  };
-
-  const clearTimeoutID = function clearTimeoutID ( timeoutID ) {
-
-    window.clearTimeout( timeoutID );
+    card3DManager.clearTimeoutID( timeoutID.current.renderer );
 
   };
 
   const clearTimer = function clearTimer () {
 
-    timer.current.time = 0;
+    card3DManager.clearTimer( timer.current );
 
   };
 
@@ -110,54 +105,6 @@ export default function Card3D () {
 
       flip();
 
-      // card3DManager.flip();
-
-    }
-
-  };
-
-  const onFlip = function onFlip () {
-
-    const { position } = customPerspectiveCamera.current;
-
-    isFlipped.current = !isFlipped.current;      
-
-    switch ( isFlipped.current ) {
-
-      case true :
-
-        cardBackgroundBack.current.appendChild( canvasRendererWebGL.current );
-
-        anime( {
-          targets: position,
-          z: 150,
-          round: 1,
-          delay: 150,
-          duration: 300,
-          easing: 'easeInQuad'
-        } );
-
-        break;
-
-      case false :
-
-        cardBackgroundFront.current.appendChild( canvasRendererWebGL.current );
-
-        anime( {
-          targets: position,
-          z: 100,
-          round: 1,
-          delay: 150,
-          duration: 300,
-          easing: 'easeOutQuad'
-        } );
-
-        break;
-
-      default :
-
-        return null;
-
     }
 
   };
@@ -166,7 +113,7 @@ export default function Card3D () {
 
     on();
     clearTimer();
-    renderLoop();
+    render();
 
     setIsLoading( false );
 
@@ -174,14 +121,39 @@ export default function Card3D () {
 
   const flip = function flip () {
 
-    if ( card.current !== null ) {
+    if ( card.current !== null && state.isFlip.value ) {
 
-      card.current.classList.toggle( 'is-flipped' );
+      dispatch( {
+        type: 'flipped-to-front',
+        payload: {
+          value: false,
+          camera: customPerspectiveCamera.current,
+          canvas: canvasRendererWebGL.current,
+          card: {
+            face: {
+              back: cardBackgroundBack.current,
+              front: cardBackgroundFront.current
+            }
+          }
+        } 
+      } );
 
-      clearTimer();
-      clearTimeoutID( timeoutID.current.card3d );
+    } else {
 
-      timeoutID.current.card3d = window.setTimeout( onFlip, 250 );
+      dispatch( {
+        type: 'flipped-to-back',
+        payload: {
+          value: true,
+          camera: customPerspectiveCamera.current,
+          canvas: canvasRendererWebGL.current,
+          card: {
+            face: {
+              back: cardBackgroundBack.current,
+              front: cardBackgroundFront.current
+            }
+          }
+        } 
+      } );
 
     }
 
@@ -201,8 +173,7 @@ export default function Card3D () {
 
     sceneManager.createControls( customPerspectiveCamera.current );
 
-    clock.current = new Clock( { autoStart: false } );
-    clock.current.start();
+    sceneManager.createTimer();
 
     timeoutID.current.renderer = window.setTimeout( onInit, 3000 );
 
@@ -210,34 +181,15 @@ export default function Card3D () {
 
   const render = function render () {
 
-    const time = clock.current.getDelta();
-
-    timer.current.time += time;
-
-    sceneManager.children.customSpotLight.current.render( time );
-    sceneManager.children.moon.current.render( time, isFlipped.current );
-
-    composerRendererWebGL.current.render( time );
-
-    if ( parseInt( timer.current.time ) === timer.current.duration ) {
-
-      flip();
-
-    }
-
-  };
-
-  const renderLoop = function renderLoop () {
-
-    composerRendererWebGL.current.renderer.setAnimationLoop( render );
+    sceneManager.render();
 
   };
 
   return (
 
     <Card
-      className='card card-component'
-      canvas={ card }
+      className={ `card card-component ${ state.isFlip.value ? 'is-flipped' : '' }` }
+      card={ card }
       onClick={ onClick }>
       <Card.Face type='front'>
         { ( isLoading ) && <Loading animated={ true } className='loading-renderer--card3d' /> }
@@ -245,7 +197,7 @@ export default function Card3D () {
           background={ cardBackgroundFront } 
           template={ <canvas className='canvas-renderer-webgl' ref={ canvasRendererWebGL } /> } />
         <Card.Title
-          title={ <a arial-label='email contact' className='card-face-link' href='mailto:iam@monsieurbadia.com'>monsieurbadia</a> } />
+          title={ <span arial-label='email contact' className='card-face-link' href='mailto:iam@monsieurbadia.com'>monsieurbadia</span> } />
         <Card.Content template={ templateManager.setTemplateSkills() } />
       </Card.Face>
       <Card.Face type='back'>

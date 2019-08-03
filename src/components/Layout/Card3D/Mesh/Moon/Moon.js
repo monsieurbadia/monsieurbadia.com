@@ -40,12 +40,12 @@ Moon.prototype = Object.assign( Moon.prototype, {
 
   },
 
-  render: function render ( time, isFlipped ) {
+  render: function render ( time ) {
 
     const timer = ( Date.now() - _start );
 
     _armure.render( time );
-    _sphere.render( isFlipped );
+    _sphere.render( this.animated );
 
     this.position.y = ( Math.abs( Math.sin( timer * 0.00025 ) ) * 2.5 );
 

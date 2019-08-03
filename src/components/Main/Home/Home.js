@@ -10,6 +10,8 @@ import { withRouter } from 'react-router-dom';
 import Card3D from '../../Layout/Card3D/Card3D';
 import Loading from '../../Common/Loading/Loading';
 
+import Card3DProvider from '../../Layout/Card3D/Reducer/reducer.card3D';
+
 export default withRouter( function Home () {
 
   const timeoutID = useRef( null );
@@ -61,7 +63,9 @@ export default withRouter( function Home () {
       ) : (
 
         <div className='scene scene-perspective'>
-          <Card3D />
+          <Card3DProvider>
+            <Card3D />
+          </Card3DProvider>
         </div>
 
       ) }

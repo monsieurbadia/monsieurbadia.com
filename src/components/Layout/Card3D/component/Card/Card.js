@@ -4,7 +4,7 @@ import React from 'react';
 import './Card.sass';
 
 const Card = ( {
-  canvas,
+  card,
   children,
   className = 'card card-component',
   onClick
@@ -12,7 +12,7 @@ const Card = ( {
 
   <div
     className={ className }
-    ref={ canvas }
+    ref={ card }
     onClick={ onClick }>
     { children }
   </div>
