@@ -10,7 +10,8 @@ import { withRouter } from 'react-router-dom';
 import Card3D from '../../Layout/Card3D/Card3D';
 import Loading from '../../Common/Loading/Loading';
 
-import Card3DProvider from '../../Layout/Card3D/Reducer/reducer.card3D';
+// hooks
+import Card3DProvider from '../../Layout/Card3D/Hook/context/context.Card3D';
 
 export default withRouter( function Home () {
 
@@ -32,11 +33,11 @@ export default withRouter( function Home () {
 
     return () => ( timeoutID.current !== null && isLoading ) && clear();
 
-  }, [ timeoutID, isLoading ] );
+  } );
 
-  const onTimeout = async function onTimeout () {
+  const onTimeout = function onTimeout () {
 
-    await setIsLoading( false );
+    setIsLoading( false );
 
   };
 

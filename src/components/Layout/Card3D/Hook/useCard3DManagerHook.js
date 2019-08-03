@@ -6,7 +6,8 @@ import {
 
 import anime from 'animejs';
 
-import { Card3DContext } from '../Reducer/reducer.card3D';
+// hooks
+import { Card3DContext } from './context/context.Card3D';
 
 export default function useCard3DManagerHook () {
 
@@ -29,9 +30,9 @@ export default function useCard3DManagerHook () {
 
   };
 
-  const clearTimer = function clearTimer () {
+  const clearTimer = function clearTimer ( timer ) {
 
-    timer.current.time = 0;
+    timer.time = 0;
 
   };
 
@@ -85,7 +86,7 @@ export default function useCard3DManagerHook () {
 
   const flip = async function flip ( isFlip ) {
 
-    clearTimer();
+    clearTimer( timer.current );
     clearTimeoutID( timeoutID.current );
 
     timeoutID.current = window.setTimeout( () => onFlip( isFlip ), 250 );

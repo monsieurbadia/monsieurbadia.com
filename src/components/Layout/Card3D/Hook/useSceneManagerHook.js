@@ -8,8 +8,9 @@ import {
   AmbientLight,
   Clock,
   DirectionalLight,
+  Group,
   PCFSoftShadowMap,
-  Scene
+  Scene,
 } from 'three';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -30,7 +31,8 @@ import CustomRendererWebGL from '../../../Common/CustomRendererWebGL/CustomRende
 import CustomSpotLight from '../../../Common/CustomSpotLight/CustomSpotLight';
 import Moon from '../Mesh/Moon/Moon';
 
-import { Card3DContext } from '../Reducer/reducer.card3D';
+// hooks
+import { Card3DContext } from './context/context.Card3D';
 
 export default function useSceneManager () {
 
@@ -45,6 +47,7 @@ export default function useSceneManager () {
   const composerRendererWebGL =  useRef( null );
   const directionalLight = useRef( null );
   const effectPassRendererWebGL = useRef( null );
+  const groupRendererWebGL = useRef( null );
   const moon = useRef( null );
   const orbitControls = useRef( null );
   const renderPassRendererWebGL = useRef( null );
@@ -59,7 +62,7 @@ export default function useSceneManager () {
 
     }
 
-  }, [ state, moon ] );
+  } );
 
   const clearRenderer = function clearRenderer () {
 
@@ -120,6 +123,16 @@ export default function useSceneManager () {
     composerRendererWebGL.current.addPass( effectPassRendererWebGL.current );
 
     return composerRendererWebGL.current;
+
+  };
+
+  const createGroup = function createGroup () {
+
+    groupRendererWebGL.current = new Group();
+
+    // sceneRendererWebGL.current.add( groupRendererWebGL.current );
+
+    return groupRendererWebGL.current;
 
   };
 
@@ -213,6 +226,7 @@ export default function useSceneManager () {
     clearRenderer,
     createCamera,
     createControls,
+    createGroup,
     createRendererEffect,
     createLights,
     createMeshes,
