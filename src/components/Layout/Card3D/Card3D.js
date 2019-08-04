@@ -6,18 +6,10 @@ import React, {
 
 import debounce from 'js-utils/debounce';
 
-// actions
-
-import {
-  setIsFlipped,
-  setIsLoading,
-  setSceneSetup
-} from './Hook/action/action';
-
 // components
 
 import Card from './Component/Card/Card';
-import Loading from '../../Common/Loading/Loading';
+import Loading from '../Loading/Loading';
 
 // data
 
@@ -38,20 +30,15 @@ import {
   useTemplateManager
 } from './Hook/custom/custom';
 
-// a basic custom dispatcher ( it's a kind of mapDispatchToProps method from redux )
-
-const dispatcher = ( dispatch ) => ( {
-
-  setIsFlipped: ( isFlipped ) => dispatch( setIsFlipped( isFlipped ) ),
-  setIsLoading: ( isLoading ) => dispatch( setIsLoading( isLoading ) ),
-  setSceneSetup: ( setup ) => dispatch( setSceneSetup( setup ) )
-
-} );
-
 export default function Card3D () {
 
-  const { state: stateCard3D, dispatch: dispatchCard3D } = useContext( ContextCard3D );
-  const { dispatch: dispatchScene } = useContext( ContextScene );
+  const {
+    state: stateCard3D,
+    dispatchIsFlipped,
+    dispatchIsLoading
+  } = useContext( ContextCard3D );
+  
+  const { dispatchSceneSetup } = useContext( ContextScene );
 
   const canvasRendererWebGL = useRef( null );
   const card = useRef( null );
@@ -117,26 +104,14 @@ export default function Card3D () {
 
   };
 
-  const onInit = function onInit () {
+  const onInit = function onInit ( setup ) {
 
     on();
     clear();
     render();
 
-    dispatcher( dispatchCard3D )
-      .setIsLoading( false );
-
-    dispatcher( dispatchScene )
-      .setSceneSetup( {
-        camera: customPerspectiveCamera.current,
-        canvas: canvasRendererWebGL.current,
-        card: {
-          face: {
-            back: cardBackgroundBack.current,
-            front: cardBackgroundFront.current
-          }
-        }
-      } );
+    dispatchIsLoading( false );
+    dispatchSceneSetup( setup );
 
   };
 
@@ -144,13 +119,11 @@ export default function Card3D () {
 
     if ( isFlipped ) {
 
-      dispatcher( dispatchCard3D )
-        .setIsFlipped( false );
+      dispatchIsFlipped( false );
 
     } else {
 
-      dispatcher( dispatchCard3D )
-        .setIsFlipped( true );
+      dispatchIsFlipped( true );
 
     }
 
@@ -174,7 +147,18 @@ export default function Card3D () {
 
     clock.current = sceneManager.createTimer();
 
-    timeoutID.current = window.setTimeout( onInit, 3000 );
+    const setup = {
+      camera: customPerspectiveCamera.current,
+      canvas: canvasRendererWebGL.current,
+      card: {
+        face: {
+          back: cardBackgroundBack.current,
+          front: cardBackgroundFront.current
+        }
+      }
+    };
+
+    timeoutID.current = window.setTimeout( () => onInit( setup ), 3000 );
 
   };
 

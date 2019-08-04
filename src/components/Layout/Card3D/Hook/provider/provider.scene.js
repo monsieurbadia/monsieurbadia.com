@@ -1,5 +1,11 @@
 import React, { useReducer } from 'react'
 
+// actions
+
+import {
+  setSceneSetup
+} from '../action/action';
+
 // contexts
 
 import { ContextScene } from '../context/context';
@@ -18,12 +24,23 @@ export function ProviderScene ( { children } ) {
 
   const [ state, dispatch ] = useReducer( reducerScene, initialStateScene );
 
+  const dispatchSceneSetup = function dispatchSceneSetup ( setup ) {
+
+    dispatch( setSceneSetup( setup ) );
+
+  };
+
   return (
 
-    <ContextScene.Provider value={ { state, dispatch } }>
+    <ContextScene.Provider
+      value={ {
+        state,
+        dispatch,
+        dispatchSceneSetup
+      } }>
       { children }
     </ContextScene.Provider>
-  
+
   );
 
 };
