@@ -7,11 +7,16 @@ import React, {
 import { withRouter } from 'react-router-dom'; 
 
 // components
+
 import Card3D from '../../Layout/Card3D/Card3D';
 import Loading from '../../Common/Loading/Loading';
 
 // hooks
-import Card3DProvider from '../../Layout/Card3D/Hook/context/context.Card3D';
+
+import {
+  ProviderCard3D,
+  ProviderScene
+} from '../../Layout/Card3D/Hook/provider/provider';
 
 export default withRouter( function Home () {
 
@@ -64,9 +69,11 @@ export default withRouter( function Home () {
       ) : (
 
         <div className='scene scene-perspective'>
-          <Card3DProvider>
-            <Card3D />
-          </Card3DProvider>
+          <ProviderScene>
+            <ProviderCard3D>
+              <Card3D />
+            </ProviderCard3D>
+          </ProviderScene>
         </div>
 
       ) }

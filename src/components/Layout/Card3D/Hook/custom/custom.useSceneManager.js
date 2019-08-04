@@ -25,18 +25,20 @@ import {
 } from 'postprocessing';
 
 // components
-import Colors from '../../../Common/Colors/Colors';
-import CustomPerspectiveCamera from '../../../Common/CustomPerspectiveCamera/CustomPerspectiveCamera';
-import CustomRendererWebGL from '../../../Common/CustomRendererWebGL/CustomRendererWebGL';
-import CustomSpotLight from '../../../Common/CustomSpotLight/CustomSpotLight';
-import Moon from '../Mesh/Moon/Moon';
+
+import Colors from '../../../../Common/Colors/Colors';
+import CustomPerspectiveCamera from '../../../../Common/CustomPerspectiveCamera/CustomPerspectiveCamera';
+import CustomRendererWebGL from '../../../../Common/CustomRendererWebGL/CustomRendererWebGL';
+import CustomSpotLight from '../../../../Common/CustomSpotLight/CustomSpotLight';
+import Moon from '../../Mesh/Moon/Moon';
 
 // hooks
-import { Card3DContext } from './context/context.Card3D';
+
+import { ContextCard3D } from '../context/context.card3D';
 
 export default function useSceneManager () {
 
-  const { state } = useContext( Card3DContext );
+  const { state: stateCard3D } = useContext( ContextCard3D );
 
   const ambientLight = useRef( null );
   const bloomEffectRendererWebGL = useRef( null );
@@ -53,12 +55,13 @@ export default function useSceneManager () {
   const renderPassRendererWebGL = useRef( null );
   const sceneRendererWebGL = useRef( null );
   const timeoutID = useRef( null );
+  const timer = useRef( { time: 0, duration: 10 } );
 
   useEffect( () => {
 
     if ( moon.current !== null ) {
       
-      timeoutID.current = window.setTimeout( () => moon.current.animated = state.isFlip.value, 250 );
+      timeoutID.current = window.setTimeout( () => moon.current.animated = stateCard3D.isFlip, 250 );
 
     }
 
@@ -130,8 +133,6 @@ export default function useSceneManager () {
 
     groupRendererWebGL.current = new Group();
 
-    // sceneRendererWebGL.current.add( groupRendererWebGL.current );
-
     return groupRendererWebGL.current;
 
   };
@@ -185,13 +186,19 @@ export default function useSceneManager () {
 
   const createTimer = function createTimer () {
 
-    clock.current = new Clock( { autoStart: false } );
+    clock.current = new Clock( false );
+
+    return clock.current;
 
   };
 
   const render = function render () {
 
     const time = clock.current.getDelta();
+
+    clock.current.start();
+
+    timer.current.time += time;
 
     customSpotLight.current.render( time );
     moon.current.render( time );

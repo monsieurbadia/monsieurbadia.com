@@ -1,26 +1,11 @@
-import React, {
-  createContext,
-  useReducer
-} from 'react'
+// contexts
+
+import { createContext } from 'react'
 
 // reducers
-import {
-  reducerCard3D,
-  initialStateCard3D
-} from '../reducer/reducer.card3D';
 
-export const Card3DContext = createContext( initialStateCard3D );
+import { initialStateCard3D } from '../reducer/reducer';
 
-export default function Card3DProvider ( { children } ) {
+// context
 
-  const [ state, dispatch ] = useReducer( reducerCard3D, initialStateCard3D );
-
-  return (
-
-    <Card3DContext.Provider value={ { state, dispatch } }>
-      { children }
-    </Card3DContext.Provider>
-  
-  );
-
-};
+export const ContextCard3D = createContext( initialStateCard3D );

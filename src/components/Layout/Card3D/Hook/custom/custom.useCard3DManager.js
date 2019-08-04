@@ -7,20 +7,22 @@ import {
 import anime from 'animejs';
 
 // hooks
-import { Card3DContext } from './context/context.Card3D';
+import { ContextCard3D } from '../context/context.card3D';
+import { ContextScene } from '../context/context.scene';
 
-export default function useCard3DManagerHook () {
+export default function useCard3DManager () {
 
   const timeoutID = useRef( null );
-  const timer = useRef( { time: 0, duration: 10 } );
 
-  const { state } = useContext( Card3DContext );
+  const { state: stateCard3D } = useContext( ContextCard3D );
+  const { state: stateScene } = useContext( ContextScene );
 
   useEffect( () => {
 
-    const { isFlip } = state;
+    const { isFlip } = stateCard3D;
+    const { setup } = stateScene;
 
-    flip( isFlip );
+    flip( isFlip, setup );
 
   } );
 
@@ -36,13 +38,13 @@ export default function useCard3DManagerHook () {
 
   };
 
-  const onFlip = function onFlip ( { camera, canvas, card, value } ) {
+  const onFlip = function onFlip ( isFlip, { camera, canvas, card } ) {
 
     if ( card.face.back !== null ) {
 
       const { position } = camera;
 
-      switch ( value ) {
+      switch ( isFlip ) {
 
         case true :
 
@@ -84,12 +86,11 @@ export default function useCard3DManagerHook () {
 
   };
 
-  const flip = async function flip ( isFlip ) {
+  const flip = async function flip ( isFlip, setup ) {
 
-    clearTimer( timer.current );
     clearTimeoutID( timeoutID.current );
 
-    timeoutID.current = window.setTimeout( () => onFlip( isFlip ), 250 );
+    timeoutID.current = window.setTimeout( () => onFlip( isFlip, setup ), 250 );
 
   };
 

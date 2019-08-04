@@ -22,8 +22,8 @@ const Card = ( {
 );
 
 Card.propTypes = {
-  card: PropTypes.object,
-  children: PropTypes.node,
+  card: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
   onClick: PropTypes.func
 };
@@ -59,7 +59,7 @@ const Face = ( {
 
 Card.propTypes = {
   children: PropTypes.node,
-  type: PropTypes.string
+  type: PropTypes.string.isRequired
 };
 
 const Title = ( { title } ) => (

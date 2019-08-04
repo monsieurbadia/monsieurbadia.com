@@ -1,14 +1,15 @@
-import {
-  IS_FLIPPED,
-  IS_LOADING
-} from '../constants';
+// constants
 
-export const setIsFlipped = dispatch => ( payload ) => dispatch( {
-  type: IS_FLIPPED,
+import { ACTION_TYPES_CARD3D } from '../constant/constant';
+
+// actions
+
+export const setIsFlipped = ( payload ) => ( {
+  type: ACTION_TYPES_CARD3D.IS_FLIPPED,
   payload
 } );
 
 export const setIsLoading = ( payload ) => ( {
-  type: IS_LOADING,
+  type: ACTION_TYPES_CARD3D.IS_LOADING,
   payload
 } );

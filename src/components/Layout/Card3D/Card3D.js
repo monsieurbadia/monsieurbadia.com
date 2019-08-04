@@ -6,26 +6,52 @@ import React, {
 
 import debounce from 'js-utils/debounce';
 
+// actions
+
+import { setIsFlipped, setIsLoading } from './Hook/action/action.card3D';
+import { setSceneSetup } from './Hook/action/action.scene';
+
 // components
+
 import Card from './Component/Card/Card';
 import Loading from '../../Common/Loading/Loading';
 
 // data
+
 import curriculum from '../../../assets/json/curriculum.json';
 
 // hooks
-import useCard3DManagerHook from './Hook/useCard3DManagerHook';
-import useSceneManagerHook from './Hook/useSceneManagerHook';
-import useTemplateManagerHook from './Hook/useTemplateManagerHook';
-import { Card3DContext } from './Hook/context/context.Card3D';
-// import { setIsFlipped, setIsLoading } from './Hook/action/action.card3D';
+
+import { ContextCard3D, ContextScene } from './Hook/context/context';
+
+// import useCard3DManager from './Hook/custom/custom.useCard3DManager';
+// import useSceneManager from './Hook/custom/custom.useSceneManager';
+// import useTemplateManager from './Hook/custom/custom.useTemplateManager';
+
+import {
+  useCard3DManager,
+  useSceneManager,
+  useTemplateManager
+} from './Hook/custom/custom';
+
+// a basic custom dispatcher ( it's a kind of mapDispatchToProps method from redux )
+
+const dispatcher = ( dispatch ) => ( {
+
+  setIsFlipped: ( isFlipped ) => dispatch( setIsFlipped( isFlipped ) ),
+  setIsLoading: ( isLoading ) => dispatch( setIsLoading( isLoading ) ),
+  setSceneSetup: ( setup ) => dispatch( setSceneSetup( setup ) ),
+
+} );
 
 export default function Card3D () {
 
-  const { state, dispatch } = useContext( Card3DContext );
+  const { state: stateCard3D, dispatch: dispatchCard3D } = useContext( ContextCard3D );
+  const { dispatch: dispatchScene } = useContext( ContextScene );
 
   const canvasRendererWebGL = useRef( null );
   const card = useRef( null );
+  const clock = useRef( null );
   const cardBackgroundFront = useRef( null );
   const cardBackgroundBack = useRef( null );
   const composerRendererWebGL =  useRef( null );
@@ -34,13 +60,13 @@ export default function Card3D () {
   const sceneRendererWebGL = useRef( null );
   const timeoutID = useRef( null );
 
-  const card3DManager = useCard3DManagerHook();
-  const sceneManager = useSceneManagerHook( canvasRendererWebGL.current );
-  const templateManager = useTemplateManagerHook( curriculum );
+  const card3DManager = useCard3DManager();
+  const sceneManager = useSceneManager( canvasRendererWebGL.current );
+  const templateManager = useTemplateManager( curriculum );
 
   useEffect( () => {
 
-    if ( state.isLoading ) {
+    if ( stateCard3D.isLoading ) {
 
       const canvas = canvasRendererWebGL.current;
       const pixelRatio = window.devicePixelRatio;
@@ -59,13 +85,13 @@ export default function Card3D () {
 
   useEffect( () => {
 
-    return () => ( state.isLoading ) && clear();
+    return () => ( stateCard3D.isLoading ) && clear();
 
   } );
 
   const clear = function clear () {
 
-    card3DManager.clearTimeoutID( timeoutID.current.renderer );
+    card3DManager.clearTimeoutID( timeoutID.current );
 
   };
 
@@ -83,7 +109,7 @@ export default function Card3D () {
 
     event.stopPropagation();
 
-    flip();
+    flip( stateCard3D.isFlip );
 
   };
 
@@ -93,45 +119,33 @@ export default function Card3D () {
     clear();
     render();
 
-    dispatch( { type: 'IS_LOADING', payload: false } );
+    dispatcher( dispatchCard3D )
+      .setIsLoading( false );
+
+    dispatcher( dispatchScene ).setSceneSetup( {
+      camera: customPerspectiveCamera.current,
+      canvas: canvasRendererWebGL.current,
+      card: {
+        face: {
+          back: cardBackgroundBack.current,
+          front: cardBackgroundFront.current
+        }
+      }
+    } );
 
   };
 
-  const flip = function flip () {
+  const flip = function flip ( isFlip ) {
 
-    if ( card.current !== null && state.isFlip.value && !state.isLoading ) {
+    if ( isFlip ) {
 
-      dispatch( {
-        type: 'IS_FLIPPED',
-        payload: {
-          value: false,
-          camera: customPerspectiveCamera.current,
-          canvas: canvasRendererWebGL.current,
-          card: {
-            face: {
-              back: cardBackgroundBack.current,
-              front: cardBackgroundFront.current
-            }
-          }
-        } 
-      } );
+      dispatcher( dispatchCard3D )
+        .setIsFlipped( false );
 
     } else {
 
-      dispatch( {
-        type: 'IS_FLIPPED',
-        payload: {
-          value: true,
-          camera: customPerspectiveCamera.current,
-          canvas: canvasRendererWebGL.current,
-          card: {
-            face: {
-              back: cardBackgroundBack.current,
-              front: cardBackgroundFront.current
-            }
-          }
-        } 
-      } );
+      dispatcher( dispatchCard3D )
+        .setIsFlipped( true );
 
     }
 
@@ -153,7 +167,7 @@ export default function Card3D () {
 
     sceneManager.createControls( customPerspectiveCamera.current );
 
-    sceneManager.createTimer();
+    clock.current = sceneManager.createTimer();
 
     timeoutID.current = window.setTimeout( onInit, 3000 );
 
@@ -168,11 +182,11 @@ export default function Card3D () {
   return (
 
     <Card
-      className={ `card card-component ${ state.isFlip.value ? 'is-flipped' : '' }` }
+      className={ `card card-component card3d ${ stateCard3D.isFlip ? 'js-is-flipped' : '' }` }
       card={ card }
-      onClick={ onClick }>
+      onClick={ !stateCard3D.isLoading ? onClick : undefined }>
       <Card.Face type='front'>
-        { ( state.isLoading ) && <Loading animated={ true } className='loading-renderer--card3d' /> }
+        { ( stateCard3D.isLoading ) && <Loading animated={ true } className='loading-renderer--card3d' /> }
         <Card.Background
           background={ cardBackgroundFront } 
           template={ <canvas className='canvas-renderer-webgl' ref={ canvasRendererWebGL } /> } />
