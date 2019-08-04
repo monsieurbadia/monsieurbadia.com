@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // design
+
 import './Card.sass';
 
 const Card = ( {
@@ -22,9 +23,13 @@ const Card = ( {
 );
 
 Card.propTypes = {
+  /** @type { object } card ref */
   card: PropTypes.object.isRequired,
+  /** @type { node } template to display */
   children: PropTypes.node.isRequired,
+  /** @type {string} card class name */
   className: PropTypes.string,
+  /** @type { function } Function triggered when component is clicked */
   onClick: PropTypes.func
 };
 
@@ -42,7 +47,9 @@ const Background = ( {
 );
 
 Background.propTypes = {
+  /** @type { object } card background ref */
   background: PropTypes.object,
+  /** @type { node } template to display */
   template: PropTypes.node
 };
 
@@ -58,7 +65,9 @@ const Face = ( {
 );
 
 Card.propTypes = {
+  /** @type { node } template to display */
   children: PropTypes.node,
+  /** @type { string } card type gender ( back | front ) */
   type: PropTypes.string.isRequired
 };
 
@@ -87,6 +96,7 @@ const Title = ( { title } ) => (
 );
 
 Card.propTypes = {
+  /** @type { node } template to display */
   title: PropTypes.node
 };
 
@@ -99,12 +109,15 @@ const Content = ( { template } ) => (
 );
 
 Content.propTypes = {
+  /** @type { node } template to display */
   template: PropTypes.node
 };
 
-Card.Background = Background;
-Card.Face = Face;
-Card.Title = Title;
-Card.Content = Content;
+Object.assign( Card, {
+  Background,
+  Content,
+  Face,
+  Title
+} );
 
 export default Card;

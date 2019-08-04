@@ -71,6 +71,7 @@ Armure.prototype = Object.assign( Armure.prototype, {
     _material.alphaMap.magFilter = NearestFilter;
     _material.alphaMap.wrapT = RepeatWrapping;
     _material.roughnessMap = _material.alphaMap;
+    _material.alphaMap.offset.y = 0;
     _material.alphaMap.repeat.y = 2;
     _material.alphaMap.anisotropy = anisotropy;
 
@@ -79,8 +80,6 @@ Armure.prototype = Object.assign( Armure.prototype, {
   },
 
   render: function render ( time ) {
-
-    _material.alphaMap.offset.y += ( time * 0.2 );
 
     _geometry.vertices.forEach( ( vertex ) => {
 
@@ -102,6 +101,8 @@ Armure.prototype = Object.assign( Armure.prototype, {
     _geometry.normalsNeedUpdate = true;
     _geometry.computeVertexNormals();
     _geometry.computeFaceNormals();
+
+    _material.alphaMap.offset.y += ( time * 0.2 );
 
   }
 
