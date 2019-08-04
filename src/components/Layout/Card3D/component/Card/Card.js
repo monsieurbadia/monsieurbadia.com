@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 // design
 import './Card.sass';
 
@@ -19,6 +21,13 @@ const Card = ( {
 
 );
 
+Card.propTypes = {
+  card: PropTypes.object,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  onClick: PropTypes.func
+};
+
 const Background = ( {
   background,
   template
@@ -32,6 +41,11 @@ const Background = ( {
 
 );
 
+Background.propTypes = {
+  background: PropTypes.object,
+  template: PropTypes.node
+};
+
 const Face = ( {
   children,
   type = 'front'
@@ -42,6 +56,11 @@ const Face = ( {
   </div>
 
 );
+
+Card.propTypes = {
+  children: PropTypes.node,
+  type: PropTypes.string
+};
 
 const Title = ( { title } ) => (
 
@@ -67,6 +86,10 @@ const Title = ( { title } ) => (
 
 );
 
+Card.propTypes = {
+  title: PropTypes.node
+};
+
 const Content = ( { template } ) => (
 
   <div className='card-face-content'>
@@ -74,6 +97,10 @@ const Content = ( { template } ) => (
   </div>
 
 );
+
+Content.propTypes = {
+  template: PropTypes.node
+};
 
 Card.Background = Background;
 Card.Face = Face;
