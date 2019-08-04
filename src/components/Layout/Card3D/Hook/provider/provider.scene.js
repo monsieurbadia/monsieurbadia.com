@@ -6,10 +6,11 @@ import { ContextScene } from '../context/context';
 
 // reducers
 
-import {
-  reducerScene,
-  initialStateScene
-} from '../reducer/reducer';
+import { reducerScene } from '../reducer/reducer';
+
+// states
+
+import { initialStateScene } from '../state/state';
 
 // provider
 

@@ -8,8 +8,11 @@ import debounce from 'js-utils/debounce';
 
 // actions
 
-import { setIsFlipped, setIsLoading } from './Hook/action/action.card3D';
-import { setSceneSetup } from './Hook/action/action.scene';
+import {
+  setIsFlipped,
+  setIsLoading,
+  setSceneSetup
+} from './Hook/action/action';
 
 // components
 
@@ -22,11 +25,12 @@ import curriculum from '../../../assets/json/curriculum.json';
 
 // hooks
 
-import { ContextCard3D, ContextScene } from './Hook/context/context';
+import {
+  ContextCard3D,
+  ContextScene
+} from './Hook/context/context';
 
-// import useCard3DManager from './Hook/custom/custom.useCard3DManager';
-// import useSceneManager from './Hook/custom/custom.useSceneManager';
-// import useTemplateManager from './Hook/custom/custom.useTemplateManager';
+// customs
 
 import {
   useCard3DManager,
@@ -40,7 +44,7 @@ const dispatcher = ( dispatch ) => ( {
 
   setIsFlipped: ( isFlipped ) => dispatch( setIsFlipped( isFlipped ) ),
   setIsLoading: ( isLoading ) => dispatch( setIsLoading( isLoading ) ),
-  setSceneSetup: ( setup ) => dispatch( setSceneSetup( setup ) ),
+  setSceneSetup: ( setup ) => dispatch( setSceneSetup( setup ) )
 
 } );
 
@@ -51,9 +55,9 @@ export default function Card3D () {
 
   const canvasRendererWebGL = useRef( null );
   const card = useRef( null );
-  const clock = useRef( null );
   const cardBackgroundFront = useRef( null );
   const cardBackgroundBack = useRef( null );
+  const clock = useRef( null );
   const composerRendererWebGL =  useRef( null );
   const customPerspectiveCamera = useRef( null );
   const groupRendererWebGL = useRef( null );
@@ -109,7 +113,7 @@ export default function Card3D () {
 
     event.stopPropagation();
 
-    flip( stateCard3D.isFlip );
+    flip( stateCard3D.isFlipped );
 
   };
 
@@ -122,22 +126,23 @@ export default function Card3D () {
     dispatcher( dispatchCard3D )
       .setIsLoading( false );
 
-    dispatcher( dispatchScene ).setSceneSetup( {
-      camera: customPerspectiveCamera.current,
-      canvas: canvasRendererWebGL.current,
-      card: {
-        face: {
-          back: cardBackgroundBack.current,
-          front: cardBackgroundFront.current
+    dispatcher( dispatchScene )
+      .setSceneSetup( {
+        camera: customPerspectiveCamera.current,
+        canvas: canvasRendererWebGL.current,
+        card: {
+          face: {
+            back: cardBackgroundBack.current,
+            front: cardBackgroundFront.current
+          }
         }
-      }
-    } );
+      } );
 
   };
 
-  const flip = function flip ( isFlip ) {
+  const flip = function flip ( isFlipped ) {
 
-    if ( isFlip ) {
+    if ( isFlipped ) {
 
       dispatcher( dispatchCard3D )
         .setIsFlipped( false );
@@ -151,7 +156,7 @@ export default function Card3D () {
 
   };
 
-  const init = async function init ( { canvas, width, height, pixelRatio } ) {
+  const init = function init ( { canvas, width, height, pixelRatio } ) {
     
     groupRendererWebGL.current = sceneManager.createGroup();
 
@@ -182,7 +187,7 @@ export default function Card3D () {
   return (
 
     <Card
-      className={ `card card-component card3d ${ stateCard3D.isFlip ? 'js-is-flipped' : '' }` }
+      className={ `card card-component card3d ${ stateCard3D.isFlipped ? 'js-is-flipped' : '' }` }
       card={ card }
       onClick={ !stateCard3D.isLoading ? onClick : undefined }>
       <Card.Face type='front'>

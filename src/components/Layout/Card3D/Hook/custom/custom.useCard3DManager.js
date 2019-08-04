@@ -19,10 +19,10 @@ export default function useCard3DManager () {
 
   useEffect( () => {
 
-    const { isFlip } = stateCard3D;
+    const { isFlipped } = stateCard3D;
     const { setup } = stateScene;
 
-    flip( isFlip, setup );
+    flip( isFlipped, setup );
 
   } );
 
@@ -38,13 +38,13 @@ export default function useCard3DManager () {
 
   };
 
-  const onFlip = function onFlip ( isFlip, { camera, canvas, card } ) {
+  const onFlip = function onFlip ( isFlipped, { camera, canvas, card } ) {
 
     if ( card.face.back !== null ) {
 
       const { position } = camera;
 
-      switch ( isFlip ) {
+      switch ( isFlipped ) {
 
         case true :
 
@@ -86,11 +86,11 @@ export default function useCard3DManager () {
 
   };
 
-  const flip = async function flip ( isFlip, setup ) {
+  const flip = async function flip ( isFlipped, setup ) {
 
     clearTimeoutID( timeoutID.current );
 
-    timeoutID.current = window.setTimeout( () => onFlip( isFlip, setup ), 250 );
+    timeoutID.current = window.setTimeout( () => onFlip( isFlipped, setup ), 250 );
 
   };
 

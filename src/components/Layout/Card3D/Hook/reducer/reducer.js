@@ -1,22 +1,13 @@
 // reducers
 
-import {
-  reducerCard3D,
-  initialStateCard3D
-} from './reducer.card3D';
+import { reducerCard3D } from './reducer.card3D';
+import { reducerScene } from './reducer.scene';
 
-import {
-  reducerScene,
-  initialStateScene
-} from './reducer.scene';
-
-// global
+// reducers global
 
 export {
-  // card3D
+  // reducer card3D
   reducerCard3D,
-  initialStateCard3D,
-  // scene
-  reducerScene,
-  initialStateScene
+  // reducer scene
+  reducerScene
 };

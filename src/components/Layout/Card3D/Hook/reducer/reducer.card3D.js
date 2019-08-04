@@ -2,18 +2,15 @@
 
 import { ACTION_TYPES_CARD3D } from '../constant/constant';
 
-// state
+// states
 
-export const initialStateCard3D = {
-  isFlip: false,
-  isLoading: true
-};
+import { initialStateCard3D } from '../state/state';
 
-export function setIsFlip ( state, payload ) {
+export function setIsFlipped ( state, payload ) {
   
   return ( {
     ...state,
-    isFlip: payload
+    isFlipped: payload
   } );
 
 };
@@ -35,7 +32,7 @@ export function reducerCard3D ( state = initialStateCard3D, { payload, type } ) 
 
     case ACTION_TYPES_CARD3D.IS_FLIPPED :
 
-      return setIsFlip( state, payload );
+      return setIsFlipped( state, payload );
 
     case ACTION_TYPES_CARD3D.IS_LOADING :
 

@@ -4,18 +4,7 @@ import { ACTION_TYPES_SCENE } from '../constant/constant';
 
 // state
 
-export const initialStateScene = {
-  setup: {
-    camera: null,
-    canvas: null,
-    card: {
-      face: {
-        back: null,
-        front: null
-      }
-    }
-  }
-};
+import { initialStateScene } from '../state/state';
 
 export function setSceneSetup ( state, payload ) {
   

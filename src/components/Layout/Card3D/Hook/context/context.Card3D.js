@@ -2,9 +2,9 @@
 
 import { createContext } from 'react'
 
-// reducers
+// states
 
-import { initialStateCard3D } from '../reducer/reducer';
+import { initialStateCard3D } from '../state/state';
 
 // context
 

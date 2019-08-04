@@ -6,10 +6,11 @@ import { ContextCard3D } from '../context/context';
 
 // reducers
 
-import {
-  reducerCard3D,
-  initialStateCard3D
-} from '../reducer/reducer';
+import { reducerCard3D } from '../reducer/reducer';
+
+// states
+
+import { initialStateCard3D } from '../state/state';
 
 // provider
 

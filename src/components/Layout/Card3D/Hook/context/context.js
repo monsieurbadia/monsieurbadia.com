@@ -3,11 +3,11 @@
 import { ContextCard3D } from './context.card3D';
 import { ContextScene } from './context.scene';
 
-// global
+// contexts global
 
 export {
-  // card3D
+  // context card3D
   ContextCard3D,
-  // scene
+  // context scene
   ContextScene
 };

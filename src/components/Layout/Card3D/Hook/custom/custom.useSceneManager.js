@@ -61,7 +61,7 @@ export default function useSceneManager () {
 
     if ( moon.current !== null ) {
       
-      timeoutID.current = window.setTimeout( () => moon.current.animated = stateCard3D.isFlip, 250 );
+      timeoutID.current = window.setTimeout( () => moon.current.animated = stateCard3D.isFlipped, 250 );
 
     }
 

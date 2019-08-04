@@ -3,11 +3,11 @@
 import { ProviderCard3D } from './provider.card3D';
 import { ProviderScene } from './provider.scene';
 
-// global
+// providers global
 
 export {
-  // card3D
+  // provider card3D
   ProviderCard3D,
-  // scene
+  // provider scene
   ProviderScene
 };

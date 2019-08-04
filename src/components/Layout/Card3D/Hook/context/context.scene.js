@@ -4,7 +4,7 @@ import { createContext } from 'react'
 
 // reducers
 
-import { initialStateScene } from '../reducer/reducer';
+import { initialStateScene } from '../state/state';
 
 // context
 
