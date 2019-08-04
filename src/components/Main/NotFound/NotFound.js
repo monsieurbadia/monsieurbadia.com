@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default function NotFound () {
+import { withRouter } from 'react-router-dom'; 
+
+export default withRouter( function NotFound () {
 
   return (
 
@@ -8,4 +10,4 @@ export default function NotFound () {
 
   );
 
-};
+} );

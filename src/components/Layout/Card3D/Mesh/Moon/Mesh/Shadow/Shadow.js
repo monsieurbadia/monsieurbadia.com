@@ -4,7 +4,7 @@ import {
   ShadowMaterial
 } from 'three';
 
-const Shadow = function Shadow () {
+export default function Shadow () {
 
   const _geometry = new PlaneGeometry( 50, 50, 20, 20 );
   const _material = new ShadowMaterial( { opacity: 0.8 } );
@@ -32,5 +32,3 @@ Shadow.prototype = Object.assign( Shadow.prototype, {
   }
 
 } );
-
-export default Shadow;

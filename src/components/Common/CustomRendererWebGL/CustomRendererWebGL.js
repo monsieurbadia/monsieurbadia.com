@@ -1,6 +1,6 @@
 import { WebGLRenderer } from 'three';
 
-const CustomRendererWebGL = function CustomRendererWebGL ( { canvas, width, height, pixelRatio } ) {
+export default function CustomRendererWebGL ( { canvas, width, height, pixelRatio } ) {
 
   if ( !CustomRendererWebGL.instance ) {
 
@@ -46,5 +46,3 @@ CustomRendererWebGL.prototype = Object.assign( CustomRendererWebGL.prototype, {
   },
 
 } );
-
-export default CustomRendererWebGL;

@@ -11,18 +11,22 @@ import {
 import SimplexNoise from 'simplex-noise';
 
 // components
+
 import Colors from '../../../../../../Common/Colors/Colors';
 import { PromiseTextureLoader } from '../../../../../../Common/LoaderManager/LoaderManager';
 
 // images
+
 import envMapImage from '../../../../../../../assets/images/envMap.png';
 import alphaMapImage from '../../../../../../../assets/images/alphaMap.png';
+
+// global
 
 let _geometry;
 let _material;
 let _simplex = new SimplexNoise();
 
-const Armure = function Armure () {
+export default function Armure () {
 
   _geometry = new IcosahedronGeometry( 10, 5 );
   _material = new MeshStandardMaterial( {
@@ -102,5 +106,3 @@ Armure.prototype = Object.assign( Armure.prototype, {
   }
 
 } );
-
-export default Armure;

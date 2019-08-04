@@ -3,7 +3,7 @@ import {
   Vector3
 } from 'three';
 
-const CustomSpotLight = function CustomSpotLight () {
+export default function CustomSpotLight () {
 
   SpotLight.call( this, 0xf1c40f, 1.0 );
 
@@ -41,5 +41,3 @@ CustomSpotLight.prototype = Object.assign( CustomSpotLight.prototype, {
   }
   
 } );
-
-export default CustomSpotLight;

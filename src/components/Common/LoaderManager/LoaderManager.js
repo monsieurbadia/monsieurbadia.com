@@ -1,4 +1,7 @@
-import { sRGBEncoding, TextureLoader } from 'three';
+import {
+  sRGBEncoding,
+  TextureLoader
+} from 'three';
 
 /**
  * @name PromiseTextureLoader

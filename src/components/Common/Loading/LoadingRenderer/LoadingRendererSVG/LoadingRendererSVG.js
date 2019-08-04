@@ -1,5 +1,7 @@
 import React from 'react';
 
+// design
+
 import './LoadingRendererSVG.sass';
 
 export default function LoadingRendererSVG ( {

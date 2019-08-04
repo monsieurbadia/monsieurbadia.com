@@ -6,13 +6,16 @@ import {
 } from 'three';
 
 // components
+
 import Colors from '../../../../../../Common/Colors/Colors';
+
+// global
 
 let _geometryIcosahedron;
 let _geometryOctahedron;
 let _materialMesh;
 
-const Sphere = function Sphere () {
+export default function Sphere () {
 
   _geometryIcosahedron = new IcosahedronBufferGeometry( 7.8, 5 );
   _geometryOctahedron = new OctahedronGeometry( 9, 0 );
@@ -51,5 +54,3 @@ Sphere.prototype = Object.assign( Sphere.prototype, {
   }
 
 } );
-
-export default Sphere;

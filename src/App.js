@@ -9,10 +9,14 @@ import {
 } from 'react-router-dom'; 
 
 // components
+
 import Home from './components/Main/Home/Home';
 
 // components lazy loading
+
 const NotFoundComponent = lazy( () => import( './components/Main/NotFound/NotFound' /* webpackChunkName: "NotFound" */ ) );
+
+// components wrapped
 
 const NotFoundWrappedComponent = () => (
 

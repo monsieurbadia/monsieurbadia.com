@@ -1,16 +1,22 @@
-import { Object3D, Vector3 } from 'three';
+import {
+  Object3D,
+  Vector3
+} from 'three';
 
 // meshes
+
 import Armure from './Mesh/Armure/Armure';
 import Shadow from './Mesh/Shadow/Shadow';
 import Sphere from './Mesh/Sphere/Sphere';
+
+// global
 
 let _armure;
 let _shadow;
 let _sphere;
 let _start;
 
-const Moon = function Moon () {
+export default function Moon () {
 
   _armure = new Armure();
   _shadow = new Shadow();
@@ -52,5 +58,3 @@ Moon.prototype = Object.assign( Moon.prototype, {
   }
 
 } );
-
-export default Moon;

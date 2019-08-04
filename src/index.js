@@ -2,9 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-// componenets
+// components
+
 import App from './App';
 import Credits from './components/Common/Credits/Credits';
+
+// service worker
+
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

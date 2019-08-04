@@ -1,4 +1,7 @@
-import { useEffect, useRef } from 'react';
+import {
+  useEffect,
+  useRef
+} from 'react';
 
 const WEBSITE = 'https://monsieurbadia.com';
 
@@ -6,7 +9,7 @@ const bros = [
   [ 'coding by @monsieurbadia', WEBSITE ]
 ];
 
-const Credits = () => {
+export default function Credits () {
 
   const author = useRef( 'Bedroom Galaxy | coding by @monsieurbadia' );
   const website = useRef( WEBSITE );
@@ -46,5 +49,3 @@ const Credits = () => {
   return null;
 
 };
-
-export default Credits;
