@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 // components
 
 import Card3D from '../../Layout/Card3D/Card3D';
-import Loading from '../../Common/Loading/Loading';
+import Loading from '../../Layout/Loading/Loading';
 
 // hooks
 
@@ -64,7 +64,7 @@ export default withRouter( function Home () {
 
       { isLoading ? (
 
-        <Loading />
+        <Loading content={ true } />
 
       ) : (
 

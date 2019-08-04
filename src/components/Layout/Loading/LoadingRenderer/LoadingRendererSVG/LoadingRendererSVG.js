@@ -1,12 +1,15 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 // design
 
 import './LoadingRendererSVG.sass';
 
 export default function LoadingRendererSVG ( {
   animated,
-  className
+  className = '',
+  content
 } ) {
 
   return (
@@ -427,8 +430,20 @@ export default function LoadingRendererSVG ( {
           </text>
         </g>
       </svg>
-    </div>
+      { content && <span className='loading-renderer-content'>click on the card to see the backside</span> }
+    </div>  
 
   );
 
+};
+
+// proptypes
+
+LoadingRendererSVG.propTypes = {
+  /** @type { bool } If true, the svg should be animated */
+  animated: PropTypes.bool,
+  /** @type { string } this set class name */
+  className: PropTypes.string,
+  /** @type { bool } If true, the content should be displayed */
+  content: PropTypes.bool
 };
