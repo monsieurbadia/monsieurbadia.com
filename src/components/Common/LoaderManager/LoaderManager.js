@@ -20,6 +20,6 @@ export function PromiseTextureLoader ( hrefURL = '' ) {
     textureLoader.encoding = sRGBEncoding;
     textureLoader.anisotropy = anisotropy;
 
-  } );
+  } ).catch( ( error ) => new Error( error ) );
 
 };

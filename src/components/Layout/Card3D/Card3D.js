@@ -15,25 +15,26 @@ import Loading from '../Loading/Loading';
 
 import curriculum from '../../../assets/json/curriculum.json';
 
-// hooks
+// contexts
 
 import {
   ContextCard3D,
   ContextScene
-} from './Hook/context/context';
+} from '../../Hook/context/context';
 
 // customs
 
 import {
   useCard3DManager,
   useSceneManager,
-  useTemplateManager
-} from './Hook/custom/custom';
+} from '../../Hook/custom/custom';
+
+// card3D
 
 export default function Card3D () {
 
   const {
-    state: stateCard3D,
+    state:stateCard3D,
     dispatchIsFlipped,
     dispatchIsLoading
   } = useContext( ContextCard3D );
@@ -44,16 +45,14 @@ export default function Card3D () {
   const card = useRef( null );
   const cardBackgroundFront = useRef( null );
   const cardBackgroundBack = useRef( null );
-  const clock = useRef( null );
-  const composerRendererWebGL =  useRef( null );
-  const customPerspectiveCamera = useRef( null );
-  const groupRendererWebGL = useRef( null );
-  const sceneRendererWebGL = useRef( null );
   const timeoutID = useRef( null );
 
-  const card3DManager = useCard3DManager();
-  const sceneManager = useSceneManager( canvasRendererWebGL.current );
-  const templateManager = useTemplateManager( curriculum );
+  const card3DManager = useCard3DManager( curriculum );
+  const sceneManager = useSceneManager();
+
+  let camera;
+  let group;
+  let scene;
 
   useEffect( () => {
 
@@ -82,7 +81,7 @@ export default function Card3D () {
 
   const clear = function clear () {
 
-    card3DManager.clearTimeoutID( timeoutID.current );
+    sceneManager.clearTimeout( timeoutID.current );
 
   };
 
@@ -130,32 +129,32 @@ export default function Card3D () {
   };
 
   const init = function init ( { canvas, width, height, pixelRatio } ) {
-    
-    groupRendererWebGL.current = sceneManager.createGroup();
 
-    sceneRendererWebGL.current = sceneManager.createScene( groupRendererWebGL.current );
+    group = sceneManager.createGroup();
 
-    customPerspectiveCamera.current = sceneManager.createCamera( { width, height } );
+    scene = sceneManager.createScene( group );
 
-    sceneManager.createLights( groupRendererWebGL.current );
-    sceneManager.createMeshes( groupRendererWebGL.current );
+    camera = sceneManager.createCamera( { width, height } );
+
+    sceneManager.createLights( group );
+    sceneManager.createMeshes( group );
     sceneManager.createRenderer( { canvas, width, height, pixelRatio } );
+    sceneManager.createRendererEffect( { scene: scene, width, height } );
+    sceneManager.createControls( camera );
+    sceneManager.createClock();
+    sceneManager.createTimer( { time: 0, duration: 10 } );
 
-    composerRendererWebGL.current = sceneManager.createRendererEffect( { scene: sceneRendererWebGL.current, width, height } );
-
-    sceneManager.createControls( customPerspectiveCamera.current );
-
-    clock.current = sceneManager.createTimer();
+    const card = {
+      face: {
+        back: cardBackgroundBack.current,
+        front: cardBackgroundFront.current
+      }
+    };
 
     const setup = {
-      camera: customPerspectiveCamera.current,
-      canvas: canvasRendererWebGL.current,
-      card: {
-        face: {
-          back: cardBackgroundBack.current,
-          front: cardBackgroundFront.current
-        }
-      }
+      camera,
+      canvas,
+      card
     };
 
     timeoutID.current = window.setTimeout( () => onInit( setup ), 3000 );
@@ -173,7 +172,7 @@ export default function Card3D () {
     <Card
       className={ `card card-component card3d ${ stateCard3D.isFlipped ? 'js-is-flipped' : '' }` }
       card={ card }
-      onClick={ !stateCard3D.isLoading ? onClick : undefined }>
+      onClick={ ( !stateCard3D.isLoading ) ? onClick : undefined }>
       <Card.Face type='front'>
         { ( stateCard3D.isLoading ) && <Loading animated={ true } className='loading-renderer--card3d' /> }
         <Card.Background
@@ -181,12 +180,12 @@ export default function Card3D () {
           template={ <canvas className='canvas-renderer-webgl' ref={ canvasRendererWebGL } /> } />
         <Card.Title
           title={ <span className='card-face-link'>monsieurbadia</span> } />
-        <Card.Content template={ templateManager.setTemplateSkills() } />
+        <Card.Content template={ card3DManager.setTemplateSkills() } />
       </Card.Face>
       <Card.Face type='back'>
         <Card.Background background={ cardBackgroundBack } />
         <Card.Title title={ <span className='card-face-link'>experiences</span> } />
-        <Card.Content template={ templateManager.setTemplateExperience() } />
+        <Card.Content template={ card3DManager.setTemplateExperience() } />
       </Card.Face>
     </Card>
 

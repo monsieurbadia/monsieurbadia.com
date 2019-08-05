@@ -1,6 +1,5 @@
 import React, {
   useEffect,
-  useRef,
   useState
 } from 'react';
 
@@ -13,16 +12,22 @@ import Loading from '../../Layout/Loading/Loading';
 
 // hooks
 
+import { useSceneManager } from '../../Hook/custom/custom'
+
+// providers
+
 import {
   ProviderCard3D,
   ProviderScene
-} from '../../Layout/Card3D/Hook/provider/provider';
+} from '../../Hook/provider/provider';
 
 export default withRouter( function Home () {
 
-  const timeoutID = useRef( null );
-
   const [ isLoading, setIsLoading ] = useState( true );
+
+  const sceneManager = useSceneManager();
+
+  let timeoutID;
 
   useEffect( () => {
 
@@ -36,7 +41,7 @@ export default withRouter( function Home () {
 
   useEffect( () => {
 
-    return () => ( timeoutID.current !== null && isLoading ) && clear();
+    return () => ( timeoutID !== undefined && isLoading ) && clear();
 
   } );
 
@@ -48,13 +53,13 @@ export default withRouter( function Home () {
 
   const clear = function clear () {
 
-    window.clearTimeout( timeoutID.current );
+    sceneManager.clearTimeout( timeoutID );
 
   };
 
   const init = function init () {
 
-    timeoutID.current = window.setTimeout( onTimeout, 2000 );
+    timeoutID = window.setTimeout( onTimeout, 2000 );
 
   };
 

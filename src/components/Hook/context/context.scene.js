@@ -6,6 +6,6 @@ import { createContext } from 'react'
 
 import { initialStateScene } from '../state/state';
 
-// context
+// context current
 
 export const ContextScene = createContext( initialStateScene );

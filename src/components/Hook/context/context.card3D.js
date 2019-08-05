@@ -6,6 +6,6 @@ import { createContext } from 'react'
 
 import { initialStateCard3D } from '../state/state';
 
-// context
+// context current
 
 export const ContextCard3D = createContext( initialStateCard3D );

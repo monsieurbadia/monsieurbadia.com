@@ -1,6 +1,97 @@
-import React from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useRef
+} from 'react';
 
-export default function useTemplateManagerHook ( { data: { experiences, skills, socials } } ) {
+import anime from 'animejs';
+
+// contexts
+
+import {
+  ContextCard3D,
+  ContextScene
+} from '../context/context';
+
+// customs
+
+import useSceneManager from './custom.useSceneManager';
+
+// custom current
+
+export default function useCard3DManager ( { data: { experiences, skills, socials } } ) {
+
+  const { state:stateCard3D } = useContext( ContextCard3D );
+  const { state:stateScene } = useContext( ContextScene );
+
+  const timeoutID = useRef( null );
+
+  const sceneManager = useSceneManager();
+
+  useEffect( () => {
+
+    const { isFlipped } = stateCard3D;
+    const { setup } = stateScene;
+
+    flip( isFlipped, setup );
+
+  } );
+
+  const onFlip = function onFlip ( isFlipped, { camera, canvas, card } ) {
+
+    if ( card.face.back !== null ) {
+
+      const { position } = camera;
+
+      switch ( isFlipped ) {
+
+        case true :
+
+          card.face.back.appendChild( canvas );
+
+          anime( {
+            targets: position,
+            z: 150,
+            round: 1,
+            delay: 150,
+            duration: 300,
+            easing: 'easeInQuad'
+          } );
+
+          break;
+
+        case false :
+
+          card.face.front.appendChild( canvas );
+
+          anime( {
+            targets: position,
+            z: 100,
+            round: 1,
+            delay: 150,
+            duration: 300,
+            easing: 'easeOutQuad'
+          } );
+
+          break;
+
+        default :
+
+          return null;
+
+      }
+
+    }
+
+  };
+
+  const flip = async function flip ( isFlipped, setup ) {
+
+    sceneManager.clearTimeout( timeoutID.current );
+
+    timeoutID.current = window.setTimeout( () => onFlip( isFlipped, setup ), 250 );
+
+  };
 
   const setTemplateSkills = function setTemplateSkills () {
 
@@ -120,13 +211,15 @@ export default function useTemplateManagerHook ( { data: { experiences, skills, 
 
       default :
 
-        return ( <></> );
+        return ( undefined );
 
     }
 
   };
 
   return ( {
+    flip,
+    // setters
     setTemplateSkills,
     setTemplateExperience,
     setTemplateSocialsLogo

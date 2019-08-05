@@ -20,7 +20,7 @@ const NotFoundComponent = lazy( () => import( './components/Main/NotFound/NotFou
 
 const NotFoundWrappedComponent = () => (
 
-  <Suspense fallback={ <div></div> }>
+  <Suspense fallback={ undefined }>
     <NotFoundComponent />
   </Suspense>
 

@@ -12,7 +12,7 @@ import {
    * @param {Number} near — camera frustum near plane.
    * @param {Number} far — camera frustum far plane. */
 
-const CustomPerspectiveCamera = function CustomPerspectiveCamera ( { fov, aspect, near, far } ) {
+  export default function CustomPerspectiveCamera ( { fov, aspect, near, far } ) {
 
   PerspectiveCamera.call( this, fov, aspect, near, far );
 
@@ -48,5 +48,3 @@ CustomPerspectiveCamera.prototype = Object.assign( CustomPerspectiveCamera.proto
   }
 
 } );
-
-export default CustomPerspectiveCamera;
