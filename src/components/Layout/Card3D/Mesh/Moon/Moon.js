@@ -28,6 +28,7 @@ export default function Moon () {
 
   this.name = 'moon';
 
+  this.animated = false;
   this.position.copy( new Vector3( 0, 0, 0 ) );
   
 };
