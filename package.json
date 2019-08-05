@@ -1,7 +1,7 @@
 {
   "name": "monsieurbadia",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "animejs": "^3.1.0",
     "js-utils": "git://github.com/monsieurbadia/js-utils.git",
@@ -13,8 +13,10 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "simplex-noise": "^2.4.0",
-    "stats-js": "^1.0.1",
     "three": "^0.106.2"
+  },
+  "devDependencies": {
+    "stats-js": "^1.0.1"
   },
   "scripts": {
     "deploy": "firebase deploy",
