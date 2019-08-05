@@ -28,16 +28,16 @@ Demo &nbsp;
     yarn install
   ```
 
-2. Run the script ```dev:api``` to start development with local server side
+2. Run the script ```start``` to start development with local server side
 
   with NPM :
   ```sh
-    npm run dev:api
+    npm start
   ```
 
   OR with YARN :
   ```sh
-    yarn dev:api
+    yarn start
   ```
 
 3. Run the script ```build``` to make the compressed files
