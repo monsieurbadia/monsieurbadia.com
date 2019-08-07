@@ -29,8 +29,6 @@ import {
   useSceneManager,
 } from '../../Hook/custom/custom';
 
-// card3D
-
 export default function Card3D () {
 
   const {

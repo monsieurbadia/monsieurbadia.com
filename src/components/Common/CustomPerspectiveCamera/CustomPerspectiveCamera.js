@@ -16,6 +16,8 @@ import {
 
   PerspectiveCamera.call( this, fov, aspect, near, far );
 
+  this.name = 'custom-perspective-camera';
+
   this.motion = {
     angle: 0.005,
     axis: new Vector3(
@@ -31,8 +33,6 @@ import {
 CustomPerspectiveCamera.prototype = Object.create( PerspectiveCamera.prototype );
 
 CustomPerspectiveCamera.prototype = Object.assign( CustomPerspectiveCamera.prototype, {
-
-  name: 'custom-perspective-camera',
 
   render: function render ( time, { position } ) {
 

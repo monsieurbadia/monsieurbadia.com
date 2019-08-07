@@ -1,7 +1,6 @@
 import {
   IcosahedronBufferGeometry,
   Mesh,
-  // MeshBasicMaterial,
   OctahedronGeometry,
   ShaderMaterial
 } from 'three';
@@ -12,7 +11,6 @@ import Colors from '../../../../../../Common/Colors/Colors';
 
 // glsl
 
-// shaders
 import sphereFragmentShader from './glsl/sphere-fs';
 import sphereVertexShader from './glsl/sphere-vs';
 
@@ -38,8 +36,6 @@ export default function Sphere () {
     fragmentShader: sphereFragmentShader
   } );
   
-  // _materialMesh = new MeshBasicMaterial( { color: Colors.parse( Colors.hexa.white ) } );
-
   const _geometry = _geometryIcosahedron;
   const _material = _materialMesh;
 
