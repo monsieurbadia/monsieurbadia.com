@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, {
+  useContext,
+  useState
+} from 'react';
+
+// context
+
+import { ContextNotification } from '../../Hook/context/context';
 
 // design
-import './Notification.scss';
 
-const Notification = ( props ) => {
+import './Notification.sass';
 
-  const {
-    content,
-    active
-  } = props;
+export default function Notification ( { content } ) {
 
-  const [ isActive, setIsActive ] = useState( active );
+  const { state, dispatchSetIsOpened } = useContext( ContextNotification );
+
   const [ message, ] = useState( content || '' );
 
   const onClick = ( event ) => {
@@ -20,13 +22,13 @@ const Notification = ( props ) => {
     event.preventDefault();
     event.stopPropagation();
 
-    setIsActive( false );
+    dispatchSetIsOpened( false );
 
   };
 
   return (
 
-    <div className={ `notification-component ${ isActive ? 'notification-component--is-active' : '' }` }>
+    <div className={ `notification-component ${ state.isOpened ? 'notification-component--is-opened' : '' }` }>
       <div className='notification'>
           <div className='notification-column notification-column--left'>
             <span className='notification-column-message'>{ message }</span>
@@ -40,5 +42,3 @@ const Notification = ( props ) => {
   );
 
 };
-
-export default connect( null, null )( withRouter( Notification ) );
