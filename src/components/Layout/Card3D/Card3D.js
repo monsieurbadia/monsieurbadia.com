@@ -19,6 +19,7 @@ import curriculum from '../../../assets/json/curriculum.json';
 
 import {
   ContextCard3D,
+  ContextNotification,
   ContextScene
 } from '../../Hook/context/context';
 
@@ -36,6 +37,8 @@ export default function Card3D () {
     dispatchIsFlipped,
     dispatchIsLoading
   } = useContext( ContextCard3D );
+  
+  const { dispatchSetIsOpened } = useContext( ContextNotification );
   
   const { dispatchSceneSetup } = useContext( ContextScene );
 

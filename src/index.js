@@ -7,6 +7,14 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import Credits from './components/Common/Credits/Credits';
 
+// providers
+
+import {
+  ProviderCard3D,
+  ProviderNotification,
+  ProviderScene
+} from './components/Hook/provider/provider';
+
 // service worker
 
 import * as serviceWorker from './serviceWorker';
@@ -14,8 +22,14 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
 
   <BrowserRouter>
-    <App />
-    <Credits />
+    <ProviderScene>
+      <ProviderNotification>
+        <ProviderCard3D>
+          <App />
+          <Credits />
+        </ProviderCard3D>
+      </ProviderNotification>
+    </ProviderScene>
   </BrowserRouter>,
 
   document.getElementById( 'root' )

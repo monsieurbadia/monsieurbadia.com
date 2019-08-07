@@ -12,14 +12,7 @@ import Loading from '../../Layout/Loading/Loading';
 
 // hooks
 
-import { useSceneManager } from '../../Hook/custom/custom'
-
-// providers
-
-import {
-  ProviderCard3D,
-  ProviderScene
-} from '../../Hook/provider/provider';
+import { useSceneManager } from '../../Hook/custom/custom';
 
 export default withRouter( function Home () {
 
@@ -74,11 +67,7 @@ export default withRouter( function Home () {
       ) : (
 
         <div className='scene scene-perspective'>
-          <ProviderScene>
-            <ProviderCard3D>
-              <Card3D />
-            </ProviderCard3D>
-          </ProviderScene>
+          <Card3D />
         </div>
 
       ) }
