@@ -1,9 +1,8 @@
 import React, {
-  useContext,
-  useState
+  useContext
 } from 'react';
 
-// context
+// contexts
 
 import { ContextNotification } from '../../Hook/context/context';
 
@@ -11,11 +10,9 @@ import { ContextNotification } from '../../Hook/context/context';
 
 import './Notification.sass';
 
-export default function Notification ( { content } ) {
+export default function Notification ( { isOpened, content = '', email } ) {
 
-  const { state, dispatchSetIsOpened } = useContext( ContextNotification );
-
-  const [ message, ] = useState( content || '' );
+  const { dispatchSetIsOpened } = useContext( ContextNotification );
 
   const onClick = ( event ) => {
 
@@ -28,10 +25,14 @@ export default function Notification ( { content } ) {
 
   return (
 
-    <div className={ `notification-component ${ state.isOpened ? 'notification-component--is-opened' : '' }` }>
+    <div className={ `notification-component ${ ( isOpened ) ? 'notification-component--is-opened' : '' }` }>
       <div className='notification'>
           <div className='notification-column notification-column--left'>
-            <span className='notification-column-message'>{ message }</span>
+            <a
+              href={ `mailto:${ email }` }
+              className='notification-column-message'>
+              { content }
+            </a>
           </div>
           <div className='notification-column notification-column--right'>
             <span onClick={ onClick } className='notification-icon notification-icon--cross' />

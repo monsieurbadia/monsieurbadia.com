@@ -1,20 +1,28 @@
 import React, {
+  useContext,
   useEffect,
   useState
 } from 'react';
 
 import { withRouter } from 'react-router-dom'; 
 
+// contexts
+
+import { ContextNotification } from '../../Hook/context/context';
+
 // components
 
 import Card3D from '../../Layout/Card3D/Card3D';
 import Loading from '../../Layout/Loading/Loading';
+import Notification from '../../Layout/Notification/Notification';
 
-// hooks
+// customs
 
 import { useSceneManager } from '../../Hook/custom/custom';
 
 export default withRouter( function Home () {
+
+  const { state } = useContext( ContextNotification );
 
   const [ isLoading, setIsLoading ] = useState( true );
 
@@ -66,8 +74,14 @@ export default withRouter( function Home () {
 
       ) : (
 
-        <div className='scene scene-perspective'>
-          <Card3D />
+        <div className='home home-component'>
+          <Notification
+            isOpened={ state.isOpened }
+            content='iam@monsieurbadia.com'
+            email='iam@monsieurbadia.com' />
+          <div className='scene scene-perspective'>
+            <Card3D />
+          </div>
         </div>
 
       ) }
