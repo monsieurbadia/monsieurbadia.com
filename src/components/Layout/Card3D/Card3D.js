@@ -37,9 +37,9 @@ export default function Card3D () {
     dispatchIsFlipped,
     dispatchIsLoading
   } = useContext( ContextCard3D );
-  
+
   const { dispatchSetIsOpened } = useContext( ContextNotification );
-  
+
   const { dispatchSceneSetup } = useContext( ContextScene );
 
   const canvasRendererWebGL = useRef( null );
@@ -162,6 +162,15 @@ export default function Card3D () {
 
   };
 
+  const open = function open ( event ) {
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    dispatchSetIsOpened( true );
+
+  };
+
   const render = function render () {
 
     sceneManager.render();
@@ -180,7 +189,7 @@ export default function Card3D () {
           background={ cardBackgroundFront } 
           template={ <canvas className='canvas-renderer-webgl' ref={ canvasRendererWebGL } /> } />
         <Card.Title
-          title={ <span className='card-face-link'>monsieurbadia</span> } />
+          title={ <span onClick={ open } className='card-face-link'>monsieurbadia</span> } />
         <Card.Content template={ card3DManager.setTemplateSkills() } />
       </Card.Face>
       <Card.Face type='back'>
