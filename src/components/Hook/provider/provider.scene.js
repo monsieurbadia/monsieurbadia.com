@@ -20,15 +20,11 @@ import { initialStateScene } from '../state/state';
 
 // provider
 
-export function ProviderScene ( { children } ) {
+export const ProviderScene = ( { children } ) => {
 
   const [ state, dispatch ] = useReducer( reducerScene, initialStateScene );
 
-  const dispatchSceneSetup = function dispatchSceneSetup ( setup ) {
-
-    dispatch( setSceneSetup( setup ) );
-
-  };
+  const dispatchSceneSetup = ( setup ) => dispatch( setSceneSetup( setup ) );
 
   return (
 

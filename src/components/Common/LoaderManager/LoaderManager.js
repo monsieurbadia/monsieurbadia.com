@@ -6,10 +6,11 @@ import {
 /**
  * @name PromiseTextureLoader
  * to preload texture image source with a three texture loader 
- * @param {String} hrefURL - desc
+ * @param { String } hrefURL - desc
+ * @returns { Promise } - 
  */
 
-export function PromiseTextureLoader ( hrefURL = '' ) {
+export const PromiseTextureLoader = ( hrefURL = '' ) => {
 
   return new Promise( ( resolve, reject ) => {
 

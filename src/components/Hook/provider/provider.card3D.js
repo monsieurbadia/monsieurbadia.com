@@ -21,21 +21,13 @@ import { initialStateCard3D } from '../state/state';
 
 // provider
 
-export function ProviderCard3D ( { children } ) {
+export const ProviderCard3D = ( { children } ) => {
 
   const [ state, dispatch ] = useReducer( reducerCard3D, initialStateCard3D );
 
-  const dispatchIsFlipped = function dispatchIsFlipped ( isFlipped ) {
+  const dispatchIsFlipped = ( isFlipped ) => dispatch( setIsFlipped( isFlipped ) );
 
-    dispatch( setIsFlipped( isFlipped ) );
-  
-  };
-
-  const dispatchIsLoading = function dispatchIsLoading ( isLoading ) {
-
-    dispatch( setIsLoading( isLoading ) );
-  
-  };
+  const dispatchIsLoading = ( isLoading ) => dispatch( setIsLoading( isLoading ) );
 
   return (
 

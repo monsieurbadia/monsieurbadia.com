@@ -57,45 +57,30 @@ export default function useSceneManager () {
   let composerRendererWebGL ;
   let directionalLight;
   let effectPassRendererWebGL;
-  let groupRendererWebGL;
   let orbitControls;
   let renderPassRendererWebGL;
   let sceneRendererWebGL;
   let timer;
 
   useEffect( () => {
-
-    if ( moon.current !== null ) {
-      
-      timeoutID.current = window.setTimeout( () => moon.current.animated = stateCard3D.isFlipped, 250 );
-
-    }
-
+    ( moon.current !== null ) &&
+      ( timeoutID.current = window.setTimeout( () =>
+        moon.current.animated = stateCard3D.isFlipped, 250 )
+      )
   } );
 
   // clears
 
-  const clearTimeout = function clearTimeout ( timeoutID ) {
+  const clearTimeout = ( timeoutID ) => window.clearTimeout( timeoutID );
 
-    window.clearTimeout( timeoutID );
+  const clearTimer = ( timer ) => ( timer.time = 0 );
 
-  };
 
-  const clearTimer = function clearTimer ( timer ) {
-
-    timer.time = 0;
-
-  };
-
-  const clearRenderer = function clearRenderer () {
-
-    stop();
-
-  };
+  const clearRenderer = () => stop();
 
   // creates
 
-  const createCamera = function createCamera ( { width, height } ) {
+  const createCamera = ( { width, height } ) => {
 
     const fov = 25;
     const aspect = ( width / height );
@@ -109,7 +94,7 @@ export default function useSceneManager () {
 
   };
 
-  const createControls = function createControls ( camera ) {
+  const createControls = ( camera ) => {
 
     orbitControls = new OrbitControls( camera );
     orbitControls.enabled = false;
@@ -121,7 +106,7 @@ export default function useSceneManager () {
 
   };
 
-  const createRendererEffect = function createRendererEffect ( { scene, width, height } ) {
+  const createRendererEffect = ( { scene, width, height } ) => {
 
     bloomEffectRendererWebGL = new BloomEffect( {
 			blendFunction: BlendFunction.SCREEN,
@@ -151,15 +136,9 @@ export default function useSceneManager () {
 
   };
 
-  const createGroup = function createGroup () {
+  const createGroup = () => ( new Group() );
 
-    groupRendererWebGL = new Group();
-
-    return groupRendererWebGL;
-
-  };
-
-  const createLights = async function createLights ( group ) {
+  const createLights = async ( group ) => {
 
     ambientLight = new AmbientLight( Colors.hexa.white, 0.25 );
     customSpotLight = new CustomSpotLight();
@@ -174,7 +153,7 @@ export default function useSceneManager () {
 
   };
 
-  const createMeshes = async function createMeshes ( group ) {
+  const createMeshes = async ( group ) => {
 
     moon.current = new Moon();
 
@@ -182,7 +161,7 @@ export default function useSceneManager () {
 
   };
 
-  const createRenderer = function createRenderer ( { canvas, width, height, pixelRatio } ) {
+  const createRenderer = ( { canvas, width, height, pixelRatio } ) => {
 
     customRendererWebGL = new CustomRendererWebGL( { canvas, width, height, pixelRatio } );
     customRendererWebGL.shadowMap.enabled = true;
@@ -195,7 +174,7 @@ export default function useSceneManager () {
 
   };
 
-  const createScene = function createScene ( group ) {
+  const createScene = ( group ) => {
 
     sceneRendererWebGL = new Scene();
     sceneRendererWebGL.background = Colors.hexa.green;
@@ -206,25 +185,13 @@ export default function useSceneManager () {
 
   };
 
-  const createClock = function createClock () {
+  const createClock = () => ( clock = new Clock( false ) );
 
-    clock = new Clock( false );
-
-    return clock;
-
-  };
-
-  const createTimer = function createTimer ( { time = 0, duration = 10 } ) {
-
-    timer = { time, duration };
-
-    return clock;
-
-  };
+  const createTimer = ( { time = 0, duration = 10 } ) => ( timer = { time, duration } );
 
   // renders
 
-  const render = function render () {
+  const render = () => {
 
     const time = clock.getDelta();
 
@@ -241,29 +208,17 @@ export default function useSceneManager () {
 
   };
 
-  const renderLoop = function renderLoop () {
-
-    start();
-
-  };
+  const renderLoop = () => ( start() );
 
   // events
 
-  const resize = function resize () { console.log( 'resize' ) };
+  const resize = function resize () { console.log( 'resize' ); };
 
   // controls
 
-  const start = function start () {
+  const start = () => ( composerRendererWebGL.renderer.setAnimationLoop( render ) );
 
-    composerRendererWebGL.renderer.setAnimationLoop( render );
-
-  };
-
-  const stop = function stop () {
-
-    composerRendererWebGL.renderer.setAnimationLoop( null );
-
-  };
+  const stop = () => ( composerRendererWebGL.renderer.setAnimationLoop( null ) );
 
   return ( {
     clearRenderer,

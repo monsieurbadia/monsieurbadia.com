@@ -20,15 +20,11 @@ import { initialStateNotification } from '../state/state';
 
 // provider
 
-export function ProviderNotification ( { children } ) {
+export const ProviderNotification = ( { children } ) => {
 
   const [ state, dispatch ] = useReducer( reducerNotification, initialStateNotification );
 
-  const dispatchSetIsOpened = function dispatchSetIsOpened ( isOpened ) {
-
-    dispatch( setIsOpened( isOpened ) );
-
-  };
+  const dispatchSetIsOpened = ( isOpened ) => dispatch( setIsOpened( isOpened ) );
 
   return (
 

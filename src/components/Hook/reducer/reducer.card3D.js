@@ -6,27 +6,19 @@ import { ACTION_TYPES_CARD3D } from '../constant/constant';
 
 import { initialStateCard3D } from '../state/state';
 
-export function setIsFlipped ( state, payload ) {
-  
-  return ( {
-    ...state,
-    isFlipped: payload
-  } );
+export const setIsFlipped = ( state, payload ) => ( {
+  ...state,
+  isFlipped: payload
+} );
 
-};
-
-export function setIsLoading ( state, payload ) {
-  
-  return ( {
-    ...state,
-    isLoading: payload
-  } );
-  
-};
+export const setIsLoading = ( state, payload ) => ( {
+  ...state,
+  isLoading: payload
+} );
 
 // reducer
 
-export function reducerCard3D ( state = initialStateCard3D, { payload, type } ) {
+export const reducerCard3D = ( state = initialStateCard3D, { payload, type } ) => {
 
   switch ( type ) {
 
@@ -38,7 +30,7 @@ export function reducerCard3D ( state = initialStateCard3D, { payload, type } ) 
 
       return setIsLoading( state, payload );
 
-    default:
+    default :
 
       return { ...state };
   

@@ -7,10 +7,13 @@ import {
   /** 
    * custom perspective camera class.
    * @constructor
+   * @extends { Object } - instance of PerspectiveCamera
    * @param {Number} fov - camera frustum vertical field of view. 
    * @param {Number} aspect — camera frustum aspect ratio.
    * @param {Number} near — camera frustum near plane.
-   * @param {Number} far — camera frustum far plane. */
+   * @param {Number} far — camera frustum far plane.
+   * @param { Object } - instance of CustomPerspectiveCamera
+   */ 
 
   export default function CustomPerspectiveCamera ( { fov, aspect, near, far } ) {
 

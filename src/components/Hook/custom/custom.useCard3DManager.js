@@ -37,7 +37,7 @@ export default function useCard3DManager ( { data: { experiences, skills, social
 
   } );
 
-  const onFlip = function onFlip ( isFlipped, { camera, canvas, card } ) {
+  const onFlip = ( isFlipped, { camera, canvas, card } ) => {
 
     if ( card.face.back !== null ) {
 
@@ -85,7 +85,7 @@ export default function useCard3DManager ( { data: { experiences, skills, social
 
   };
 
-  const flip = async function flip ( isFlipped, setup ) {
+  const flip = async ( isFlipped, setup ) => {
 
     sceneManager.clearTimeout( timeoutID.current );
 
@@ -93,7 +93,7 @@ export default function useCard3DManager ( { data: { experiences, skills, social
 
   };
 
-  const setTemplateSkills = function setTemplateSkills () {
+  const setTemplateSkills = () => {
 
     const templateList = skills.map( ( { id, hashtag } ) => {
 
@@ -118,7 +118,7 @@ export default function useCard3DManager ( { data: { experiences, skills, social
 
   };
 
-  const setTemplateExperience = function setTemplateExperience () {
+  const setTemplateExperience = () => {
 
     const contentList = experiences.map( ( { id, date, name, qualification } ) => {
 
@@ -167,7 +167,7 @@ export default function useCard3DManager ( { data: { experiences, skills, social
 
   };
 
-  const setTemplateSocialsLogo =  function setTemplateSocialsLogo ( name ) {
+  const setTemplateSocialsLogo = ( name ) => {
 
     switch ( name ) {
 

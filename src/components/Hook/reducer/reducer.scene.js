@@ -6,18 +6,15 @@ import { ACTION_TYPES_SCENE } from '../constant/constant';
 
 import { initialStateScene } from '../state/state';
 
-export function setSceneSetup ( state, payload ) {
-  
-  return ( {
-    ...state,
-    setup: payload
-  } );
+export const  setSceneSetup = ( state, payload ) => ( {
+  ...state,
+  setup: payload
+} );
 
-};
 
 // reducer
 
-export function reducerScene ( state = initialStateScene, { payload, type } ) {
+export const  reducerScene = ( state = initialStateScene, { payload, type } ) => {
 
   switch ( type ) {
 
@@ -25,7 +22,7 @@ export function reducerScene ( state = initialStateScene, { payload, type } ) {
 
       return setSceneSetup( state, payload );
 
-    default:
+    default :
 
       return { ...state };
   

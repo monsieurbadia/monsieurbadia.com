@@ -80,23 +80,13 @@ export default function Card3D () {
 
   } );
 
-  const clear = function clear () {
+  const clear = () => sceneManager.clearTimeout( timeoutID.current );
 
-    sceneManager.clearTimeout( timeoutID.current );
+  const on = () => window.addEventListener( 'resize', debounce( () =>
+    sceneManager.resize()
+  ), 1000 );
 
-  };
-
-  const on = function on () {
-
-    window.addEventListener( 'resize', debounce( () => {
-
-      sceneManager.resize();
-
-    } ), 1000 );
-
-  };
-
-  const onClick = function onClick ( event ) {
+  const onClick = ( event ) => {
 
     event.stopPropagation();
 
@@ -104,7 +94,7 @@ export default function Card3D () {
 
   };
 
-  const onInit = function onInit ( setup ) {
+  const onInit = ( setup ) => {
 
     on();
     clear();
@@ -115,7 +105,7 @@ export default function Card3D () {
 
   };
 
-  const flip = function flip ( isFlipped ) {
+  const flip = ( isFlipped ) => {
 
     if ( isFlipped ) {
 
@@ -129,7 +119,7 @@ export default function Card3D () {
 
   };
 
-  const init = function init ( { canvas, width, height, pixelRatio } ) {
+  const init = ( { canvas, width, height, pixelRatio } ) => {
 
     group = sceneManager.createGroup();
 
@@ -162,7 +152,7 @@ export default function Card3D () {
 
   };
 
-  const open = function open ( event ) {
+  const open = ( event ) => {
 
     event.preventDefault();
     event.stopPropagation();
@@ -171,11 +161,7 @@ export default function Card3D () {
 
   };
 
-  const render = function render () {
-
-    sceneManager.render();
-
-  };
+  const render = () => ( sceneManager.render() );
 
   return (
 

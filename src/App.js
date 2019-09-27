@@ -14,7 +14,8 @@ import Home from './components/Main/Home/Home';
 
 // components lazy loading
 
-const NotFoundComponent = lazy( () => import( './components/Main/NotFound/NotFound' /* webpackChunkName: "NotFound" */ ) );
+const NotFoundComponent = lazy( () =>
+  import( './components/Main/NotFound/NotFound' /* webpackChunkName: "NotFound" */ ) );
 
 // components wrapped
 
@@ -26,7 +27,7 @@ const NotFoundWrappedComponent = () => (
 
 );
 
-export default function App () {
+export default () => {
 
   return (
 

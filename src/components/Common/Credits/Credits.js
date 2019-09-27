@@ -14,12 +14,6 @@ export default function Credits () {
   const author = useRef( 'Bedroom Galaxy | coding by @monsieurbadia' );
   const website = useRef( WEBSITE );
 
-  useEffect( () => {
-
-    show();
-
-  });
-
   const show = () => {
 
     if ( navigator.userAgent.toLowerCase().indexOf( 'chrome' ) > - 1 ) {
@@ -44,7 +38,9 @@ export default function Credits () {
     
     }
   
-  }
+  };
+
+  show();
 
   return null;
 
