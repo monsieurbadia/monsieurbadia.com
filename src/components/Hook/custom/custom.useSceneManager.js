@@ -212,7 +212,7 @@ export default function useSceneManager () {
 
   // events
 
-  const resize = function resize () { console.log( 'resize' ); };
+  const resize = function resize () {};
 
   // controls
 
