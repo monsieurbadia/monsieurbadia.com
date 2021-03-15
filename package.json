@@ -13,7 +13,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "simplex-noise": "^2.4.0",
-    "three": "^0.106.2"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "stats-js": "^1.0.1"
